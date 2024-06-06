@@ -45,7 +45,7 @@ class Bank
         Account account = new Account(Credentials.GetUsername(), Credentials.GetPassword());
 
         if (BankDB.isExist(account))
-            if 
+            if (BankDB.isCorrect(account))
                 if (BankDB.IsAdmin)
                 {
                     Admin admin = new(account.Username, account.Password);
@@ -56,7 +56,9 @@ class Bank
                     User user = new(account.Username, account.Password, );
                     user.MainMenu();
                 }
-               
+            else
+                Console.WriteLine("Username or Password is Incorrect");
+
         else
             Console.WriteLine("This Account Doesn't Exist");
 
