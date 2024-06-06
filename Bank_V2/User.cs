@@ -16,12 +16,15 @@ class User : Account
         bool isExit = false;
         while (!isExit)
         {
-            Console.WriteLine("Hello " + Username + " !");
-            Console.WriteLine("What would you like to do?");
+            Console.Clear();
+
+            Console.WriteLine("Hello " + Username + "!");
+            Console.WriteLine("What would you like to do?\n");
             Console.WriteLine("1. Get Salary");
             Console.WriteLine("2. Transfer Money");
             Console.WriteLine("9. Log Out");
             Console.WriteLine("0. Exit");
+            Console.WriteLine("-----------------------------");
 
             string choice = Console.ReadLine();
 

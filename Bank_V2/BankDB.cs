@@ -1,9 +1,9 @@
 ﻿namespace Bank_V2;
 
-class BankDB
+static class BankDB
 {
     private const int maxAccountCount = 10;
-    private const int maxAdminAccountCount = 3;
+    private const int maxAdminAccountsCount = 3;
     public static Account[] accounts = new Account[maxAccountCount];
 
     private const string fileName = "Data.txt";
@@ -33,10 +33,10 @@ class BankDB
         {
             string str = file.ReadLine() ?? " ";
 
+            string[] credentials = str.Split(' ');
+
             try 
             {
-                string[] credentials = str.Split(' ');
-
                 accounts[i] = new Account(credentials[0], credentials[1]);
             }
             catch (Exception) { }
@@ -52,7 +52,7 @@ class BankDB
         for (int i = 0; i < maxAccountCount; i++)
             if (accounts[i].Username == userAccount.Username)
             {
-                if (i > maxAccountCount / 2)
+                if (i > maxAdminAccountsCount)
                     IsAdmin = false;
                 return true;
             }
@@ -69,11 +69,21 @@ class BankDB
         return false;
     }
 
-    public static int FindEmptyAccount()
+    public static int FindEmptySpaceForUserAccount() // Need to change the name
     {
-        for (int i = 0; i < maxAccountCount; i++)
-            if (accounts[i].Username == "")
+        for (int i = maxAdminAccountsCount - 1; i < maxAccountCount; i++)
+            if (accounts[i] == null)
                 return i;
+
+        return -1;
+    }
+
+    public static int FindEmptySpaceForAdminAccount() // Also need to change the name
+    {
+        for (int i = 0; i < maxAdminAccountsCount; i++)
+            if (accounts[i] == null)
+                return i;
+
         return -1;
     }
 

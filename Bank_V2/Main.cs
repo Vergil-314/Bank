@@ -1,4 +1,8 @@
-﻿namespace Bank_V2;
+﻿using Bank_V2;
+using System;
+using System.Reflection;
+
+namespace Bank_V2;
 
 class Main
 {
@@ -15,6 +19,8 @@ class Main
             Console.WriteLine("2. Sign up");
             Console.WriteLine("3. Change Password");
             Console.WriteLine("0. Quit");
+            Console.WriteLine("-----------------------------");
+
 
             string option = Console.ReadLine();
 
@@ -41,7 +47,10 @@ class Main
 
     private static void LogIn()
     {
-        Account account = new Account(Credentials.GetUsername(), Credentials.GetPassword());
+        string username = Credentials.GetUsername();
+        string password = Credentials.GetPassword();
+
+        Account account = new Account(username, password);
 
         if (BankDB.isExist(account))
             if (BankDB.isCorrect(account))
@@ -67,8 +76,10 @@ class Main
                 Console.Clear();
                 Console.WriteLine("This Account Doesn't Exist\n");
                 Console.WriteLine("What do you want to do?");
-                Console.WriteLine("1. Continue Logging In");
+                Console.WriteLine("1. Create a New Account");
                 Console.WriteLine("2. Go Back");
+                Console.WriteLine("-----------------------------");
+
 
                 string option = Console.ReadLine();
 
@@ -76,7 +87,7 @@ class Main
                 {
                     case "1":
                         isValid = true;
-                        LogIn();
+                        CreateAccount(username, password);
                         break;
                     case "2":
                         isValid = true;
@@ -89,37 +100,39 @@ class Main
 
     }
 
-    private static void CreateAccount(string username, string password)
+
+
+    private static void CreateUserAccount(string username, string password)
     {
         int index = BankDB.FindEmptyAccount();
 
-        if (BankDB.IsAdmin)
+        User user = new(username, password, new Card());
+        try
         {
-            Admin admin = new(username, password);
-            try
-            {
-                BankDB.accounts[index] = admin;
-            }
-            catch (IndexOutOfRangeException)
-            {
-                Console.WriteLine("There no avaliable space for this account");
-            }
+            BankDB.accounts[index] = user;
+        }
+        catch (IndexOutOfRangeException)
+        {
+            Console.WriteLine("There no avaliable space for this account");
+        }
 
-        }
-        else
-        {
-            User user = new(username, password, new Card());
-            try
-            {
-                BankDB.accounts[index] = user;
-            }
-            catch (IndexOutOfRangeException)
-            {
-                Console.WriteLine("There no avaliable space for this account");
-            }
-        }
+
         BankDB.PrintFile();
+
     }
 
+    private static void CreateAdminAccount(string username, string password)
+    {
 
+
+        Admin admin = new(username, password);
+        try
+        {
+            BankDB.accounts[index] = admin;
+        }
+        catch (IndexOutOfRangeException)
+        {
+            Console.WriteLine("There no avaliable space for this account");
+        }
+    }
 }

@@ -14,24 +14,27 @@ class Admin : Account
         bool isExit = false;
         while (!isExit)
         {
+            Console.Clear();
+
             Console.WriteLine("Hello Admin!");
-            Console.WriteLine("What would you like to do?");
+            Console.WriteLine("What would you like to do?\n");
             Console.WriteLine("1. Quit this job");
-            Console.WriteLine("9. Log Out");
-            Console.WriteLine("0. Exit");
+            Console.WriteLine("2. Create a New Admin Account");
+            Console.WriteLine("3. Create a New User Account");
+            Console.WriteLine("0. Log Out");
+            Console.WriteLine("-----------------------------");
 
             string choice = Console.ReadLine();
 
             switch (choice)
             {
                 case "1":
-                    isExit = true;
                     Console.WriteLine("ЫДи НахУЙ");
                     break;
-                case "9":
-                    isExit = true;
-                    // Method LogOut()
-                    break;
+
+                case "2":
+
+
                 case "0":
                     isExit = true;
                     break;
