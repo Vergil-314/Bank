@@ -9,8 +9,6 @@ static class BankDB
     public static User[] userAccounts = new User[maxUserAccountsCount];
     public static Admin[] adminAccounts = new Admin[maxAdminAccountsCount];
 
-    public static Account[] accounts = new Account[maxAccountCount];
-
     private const string fileName = "Data.txt";
 
     static BankDB()
@@ -69,27 +67,33 @@ static class BankDB
         }
 
 
+
     }
 
 
     public static bool isExist(string username)
     {
         IsAdmin = true;
-        for (int i = 0; i < maxAccountCount; i++)
-            if (accounts[i].Username == username)
-            {
-                if (i >= maxAdminAccountsCount)
-                    IsAdmin = false;
+        foreach (Admin admin in adminAccounts)
+            if (admin.Username == username)
                 return true;
-            }
+
+        IsAdmin = false;
+        foreach (User user in userAccounts)
+            if (user.Username == username)
+                return true;
+
         return false;
     }
 
-    public static bool isCorrect(Account userAccount)
+    public static bool isCorrect(Account account)
     {
-        for (int i = 0; i < maxAccountCount; i++)
+        foreach (Admin admin in adminAccounts)
+            if (admin.Username == account.Username && admin.Password == account.Password)
+                return true;
 
-            if (accounts[i].Username == userAccount.Username && accounts[i].Password == userAccount.Password)
+        foreach (User user in userAccounts)
+            if (user.Username == account.Username && user.Password == account.Password)
                 return true;
 
         return false;

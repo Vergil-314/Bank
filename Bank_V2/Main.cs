@@ -120,7 +120,7 @@ class Main
         User user = new(username, password, new Card());
         try
         {
-            BankDB.accounts[index] = user;
+            BankDB.userAccounts[index] = user;
         }
         catch (IndexOutOfRangeException)
         {
@@ -139,7 +139,7 @@ class Main
         Admin admin = new(username, password);
         try
         {
-            BankDB.accounts[index] = admin;
+            BankDB.adminAccounts[index] = admin;
         }
         catch (IndexOutOfRangeException)
         {
