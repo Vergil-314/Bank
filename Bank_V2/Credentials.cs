@@ -13,13 +13,13 @@ class Credentials
         get => username;
         set
         {
-            if (username == null)
+            if (Username == null)
                 throw new ArgumentNullException("Password Can't Be Empty");
 
-            if (username.Length < usernameMinLength)
+            if (Username.Length < usernameMinLength)
                 throw new ArgumentException("Password Can't Be Less Than " + usernameMinLength + " Digits");
 
-            username = value;
+            Username = value;
         }
     }
 
@@ -49,7 +49,7 @@ class Credentials
 
             try
             {
-                Username = Console.ReadLine();
+                username = Console.ReadLine();
                 isValid = true;
             }
             catch (Exception exception)
@@ -58,7 +58,7 @@ class Credentials
             }
 
         }
-        return Username;
+        return username;
     }
 
     public static string GetPassword()
@@ -70,7 +70,7 @@ class Credentials
 
             try
             {
-                Password = Console.ReadLine();
+                password = Console.ReadLine();
                 isValid = true;
             }
             catch (Exception exception)
@@ -79,7 +79,7 @@ class Credentials
             }
 
         }
-        return Password;
+        return password;
     }
 
 

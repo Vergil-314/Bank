@@ -3,11 +3,13 @@
 class Bank
 {
 
-    public void MainMenu()
+    public static void MainMenu()
     {
         bool isExit = false;
         while (!isExit)
         {
+            Console.Clear();
+
             Console.WriteLine("What do you want to do?");
             Console.WriteLine("1. Log In");
             Console.WriteLine("2. Sign up");
@@ -19,7 +21,7 @@ class Bank
             switch (option)
             {
                 case "1":
-                    // LogIn();
+                    LogIn();
                     break;
 
                 case "2":
@@ -30,7 +32,7 @@ class Bank
                     // ChangePassword();
                     break;
 
-                case "4":
+                case "0":
                     isExit = true;
                     break;
             }
@@ -38,14 +40,25 @@ class Bank
     }
 
 
-    private void LogIn()
+    private static void LogIn()
     {
         Account account = new Account(Credentials.GetUsername(), Credentials.GetPassword());
 
         if (BankDB.isExist(account))
-        {
-
-        }
+            if 
+                if (BankDB.IsAdmin)
+                {
+                    Admin admin = new(account.Username, account.Password);
+                    admin.MainMenu();
+                }
+                else
+                {
+                    User user = new(account.Username, account.Password, );
+                    user.MainMenu();
+                }
+               
+        else
+            Console.WriteLine("This Account Doesn't Exist");
 
     }
 
