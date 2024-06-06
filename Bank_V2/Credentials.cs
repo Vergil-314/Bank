@@ -18,6 +18,9 @@ class Credentials
 
             if (value.Length < usernameMinLength)
                 throw new ArgumentException("Username Can't Be Less Than " + usernameMinLength + " Digits");
+            
+            if (value.Contains(' '))
+                throw new ArgumentException("Username Can't Contain Spaces");
 
             username = value;
         }
@@ -33,6 +36,9 @@ class Credentials
 
             if (value.Length < passwordMinLength)
                 throw new ArgumentException("Password Can't Be Less Than " + passwordMinLength + " Digits");
+
+            if (value.Contains(' '))
+                throw new ArgumentException("Password Can't Contain Spaces");
 
             password = value;
 

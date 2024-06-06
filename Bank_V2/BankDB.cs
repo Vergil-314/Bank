@@ -3,6 +3,7 @@
 class BankDB
 {
     private const int maxAccountCount = 10;
+    private const int maxAdminAccountCount = 3;
     public static Account[] accounts = new Account[maxAccountCount];
 
     private const string fileName = "Data.txt";
@@ -16,12 +17,12 @@ class BankDB
 
     public static bool IsAdmin { get; set; }
 
-    private static void PrintFile()
+    public static void PrintFile()
     {
         using StreamWriter file = new(fileName);
 
         foreach (Account account in accounts)
-            Console.WriteLine(account.Username + " " + account.Password);
+            file.WriteLine(account.Username + " " + account.Password);
     }
 
     private static void ReadFile()

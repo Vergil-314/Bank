@@ -118,6 +118,7 @@ class Main
                 Console.WriteLine("There no avaliable space for this account");
             }
         }
+        BankDB.PrintFile();
     }
 
 

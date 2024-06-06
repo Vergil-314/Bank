@@ -4,7 +4,7 @@ class Program
 {
     static void Main()
     {
-        Main.MainMenu();
+        Bank_V2.Main.MainMenu();
     }
 }
 
