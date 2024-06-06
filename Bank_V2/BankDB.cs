@@ -6,6 +6,13 @@ class BankDB
     private const int adminAccountCount = maxAccountCount / 2;
     public static Account[] accounts = new Account[maxAccountCount];
 
+    static BankDB()
+    {
+        Directory.SetCurrentDirectory("C:\\Users\\User\\source\\repos\\Bank_V2\\Bank_V2\\Data");
+    }
+
+
+
     public static bool IsAdmin { get; set; }
 
     public static bool isExist(Account userAccount)
