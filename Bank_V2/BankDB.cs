@@ -22,6 +22,24 @@ class BankDB
             Console.WriteLine(account.Username + " " + account.Password);
     }
 
+    private static void ReadFile()
+    {
+        using StreamReader file = new(fileName);
+
+        for (int i = 0; i < maxAccountCount; i++)
+        {
+            string str = file.ReadLine();
+            string[] credentials = str.Split(' ');
+
+            try
+            {
+                accounts[i] = new Account(credentials[0], credentials[1]);
+            }
+            catch (Exception) { }
+
+        }
+
+    }
 
     public static bool IsAdmin { get; set; }
 
