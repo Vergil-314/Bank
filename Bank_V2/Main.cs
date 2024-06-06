@@ -31,7 +31,7 @@ class Main
                     break;
 
                 case "2":
-                    CreateAccount(Credentials.GetUsername(), Credentials.GetPassword());
+                    CreateUserAccount(Credentials.GetUsername(), Credentials.GetPassword());
                     break;
 
                 case "3":
@@ -87,7 +87,7 @@ class Main
                 {
                     case "1":
                         isValid = true;
-                        CreateAccount(username, password);
+                        CreateUserAccount(username, password);
                         break;
                     case "2":
                         isValid = true;
@@ -104,7 +104,7 @@ class Main
 
     private static void CreateUserAccount(string username, string password)
     {
-        int index = BankDB.FindEmptyAccount();
+        int index = BankDB.FindEmptySpaceForUserAccount();
 
         User user = new(username, password, new Card());
         try
@@ -123,7 +123,7 @@ class Main
 
     private static void CreateAdminAccount(string username, string password)
     {
-
+        int index = BankDB.FindEmptySpaceForAdminAccount();
 
         Admin admin = new(username, password);
         try
