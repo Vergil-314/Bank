@@ -10,6 +10,8 @@ class BankDB
     static BankDB()
     {
         Directory.SetCurrentDirectory("C:\\Users\\User\\source\\repos\\Bank_V2\\Bank_V2\\Data");
+
+        ReadFile();
     }
 
     private static void PrintFile()
@@ -47,8 +49,8 @@ class BankDB
         for (int i = 0; i < maxAccountCount; i++)
             if (accounts[i].Username == userAccount.Username)
             {
-                if (i > adminAccountCount)
-                    IsAdmin = false;
+                //if (i > adminAccountCount)
+                //    IsAdmin = false;
                 return true;
             }
         return false;

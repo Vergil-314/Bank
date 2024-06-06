@@ -13,13 +13,13 @@ class Credentials
         get => username;
         set
         {
-            if (Username == null)
-                throw new ArgumentNullException("Password Can't Be Empty");
+            if (value == "")
+                throw new ArgumentNullException("Username Can't Be Empty");
 
-            if (Username.Length < usernameMinLength)
-                throw new ArgumentException("Password Can't Be Less Than " + usernameMinLength + " Digits");
+            if (value.Length < usernameMinLength)
+                throw new ArgumentException("Username Can't Be Less Than " + usernameMinLength + " Digits");
 
-            Username = value;
+            username = value;
         }
     }
 
@@ -28,10 +28,10 @@ class Credentials
         get => password;
         set
         {
-            if (password == null)
+            if (value == "")
                 throw new ArgumentNullException("Password Can't Be Empty");
 
-            if (password.Length < passwordMinLength)
+            if (value.Length < passwordMinLength)
                 throw new ArgumentException("Password Can't Be Less Than " + passwordMinLength + " Digits");
 
             password = value;
@@ -42,6 +42,8 @@ class Credentials
 
     public static string GetUsername()
     {
+        Console.Clear();
+
         bool isValid = false;
         while (!isValid)
         {
@@ -49,20 +51,23 @@ class Credentials
 
             try
             {
-                username = Console.ReadLine();
+                Username = Console.ReadLine();
                 isValid = true;
             }
             catch (Exception exception)
             {
+                Console.Clear();
                 Console.WriteLine(exception.Message);
             }
 
         }
-        return username;
+        return Username;
     }
 
     public static string GetPassword()
     {
+        Console.Clear();
+
         bool isValid = false;
         while (!isValid)
         {
@@ -70,16 +75,17 @@ class Credentials
 
             try
             {
-                password = Console.ReadLine();
+                Password = Console.ReadLine();
                 isValid = true;
             }
             catch (Exception exception)
             {
+                Console.Clear();
                 Console.WriteLine(exception.Message);
             }
 
         }
-        return password;
+        return Password;
     }
 
 

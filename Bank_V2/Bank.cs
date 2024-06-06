@@ -25,7 +25,7 @@ class Bank
                     break;
 
                 case "2":
-                    // CreateAccount();
+                    CreateAccount(Credentials.GetUsername(), Credentials.GetPassword());
                     break;
 
                 case "3":
@@ -53,18 +53,44 @@ class Bank
                 }
                 else
                 {
-                    User user = new(account.Username, account.Password, );
+                    User user = new(account.Username, account.Password, new Card());
                     user.MainMenu();
                 }
             else
                 Console.WriteLine("Username or Password is Incorrect");
 
         else
-            Console.WriteLine("This Account Doesn't Exist");
+        {
+            
+            bool isValid = false;
+            while (!isValid)
+            {
+                Console.Clear();
+                Console.WriteLine("This Account Doesn't Exist\n");
+                Console.WriteLine("What do you want to do?");
+                Console.WriteLine("1. Continue Logging In");
+                Console.WriteLine("2. Go Back");
+
+                string option = Console.ReadLine();
+
+                switch (option)
+                {
+                    case "1":
+                        isValid = true;
+                        LogIn();
+                        break;
+                    case "2":
+                        isValid = true;
+                        MainMenu();
+                        break;
+
+                }
+            }
+        }
 
     }
 
-        private static void CreateAccount(string username, string password)
+    private static void CreateAccount(string username, string password)
     {
         int index = BankDB.FindEmptyAccount();
         try
