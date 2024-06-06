@@ -69,40 +69,45 @@ class Main
 
         else
         {
-            
-            bool isValid = false;
-            while (!isValid)
-            {
-                Console.Clear();
-                Console.WriteLine("This Account Doesn't Exist\n");
-                Console.WriteLine("What do you want to do?");
-                Console.WriteLine("1. Create a New Account");
-                Console.WriteLine("2. Go Back");
-                Console.WriteLine("-----------------------------");
 
-
-                string option = Console.ReadLine();
-
-                switch (option)
-                {
-                    case "1":
-                        isValid = true;
-                        CreateUserAccount(username, password);
-                        break;
-                    case "2":
-                        isValid = true;
-                        MainMenu();
-                        break;
-
-                }
-            }
+            AddAccount(username, password);
         }
-
+        
     }
 
 
+    private static void AddAccount(string username, string password)
+    {
+        bool isValid = false;
+        while (!isValid)
+        {
+            Console.Clear();
+            Console.WriteLine("This Account Doesn't Exist\n");
+            Console.WriteLine("What do you want to do?");
+            Console.WriteLine("1. Create a New Account");
+            Console.WriteLine("2. Go Back");
+            Console.WriteLine("-----------------------------");
 
-    private static void CreateUserAccount(string username, string password)
+
+            string option = Console.ReadLine();
+
+            switch (option)
+            {
+                case "1":
+                    isValid = true;
+                    CreateUserAccount(username, password);
+                    break;
+                case "2":
+                    isValid = true;
+                    MainMenu();
+                    break;
+
+            }
+        }
+    }
+
+
+    public static void CreateUserAccount(string username, string password)
     {
         int index = BankDB.FindEmptySpaceForUserAccount();
 
@@ -121,7 +126,7 @@ class Main
 
     }
 
-    private static void CreateAdminAccount(string username, string password)
+    public static void CreateAdminAccount(string username, string password)
     {
         int index = BankDB.FindEmptySpaceForAdminAccount();
 

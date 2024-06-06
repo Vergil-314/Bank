@@ -72,7 +72,7 @@ static class BankDB
     public static int FindEmptySpaceForUserAccount() // Need to change the name
     {
         for (int i = maxAdminAccountsCount - 1; i < maxAccountCount; i++)
-            if (accounts[i] == null)
+            if (accounts[i].Username == "")
                 return i;
 
         return -1;
@@ -81,7 +81,7 @@ static class BankDB
     public static int FindEmptySpaceForAdminAccount() // Also need to change the name
     {
         for (int i = 0; i < maxAdminAccountsCount; i++)
-            if (accounts[i] == null)
+            if (accounts[i].Username == "")
                 return i;
 
         return -1;

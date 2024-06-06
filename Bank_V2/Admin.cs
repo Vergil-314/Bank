@@ -11,13 +11,14 @@ class Admin : Account
 
     public void MainMenu()
     {
+        Console.Clear();
+
         bool isExit = false;
         while (!isExit)
         {
-            Console.Clear();
-
             Console.WriteLine("Hello Admin!");
             Console.WriteLine("What would you like to do?\n");
+
             Console.WriteLine("1. Quit this job");
             Console.WriteLine("2. Create a New Admin Account");
             Console.WriteLine("3. Create a New User Account");
@@ -26,14 +27,17 @@ class Admin : Account
 
             string choice = Console.ReadLine();
 
+            Console.Clear();
+
             switch (choice)
             {
                 case "1":
-                    Console.WriteLine("ЫДи НахУЙ");
+                    Console.WriteLine("\t----ЫДи НахУЙ----\n");
                     break;
 
                 case "2":
-
+                    //Main.CreateAdminAccount();
+                    break;
 
                 case "0":
                     isExit = true;
