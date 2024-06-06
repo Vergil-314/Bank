@@ -64,11 +64,18 @@ class Bank
 
     }
 
-    private static void CreateAccount(string username, string password)
+        private static void CreateAccount(string username, string password)
     {
         int index = BankDB.FindEmptyAccount();
-        BankDB.accounts[index].Username = username;
-        BankDB.accounts[index].Password = password;
+        try
+        {
+            BankDB.accounts[index].Username = username;
+            BankDB.accounts[index].Password = password;
+        }
+        catch (Exception)
+        {
+            Console.WriteLine("There no avaliable space for this account");
+        }
     }
 
 
