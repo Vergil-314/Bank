@@ -1,6 +1,6 @@
 ﻿namespace Bank_V2;
 
-class Bank
+class Main
 {
 
     public static void MainMenu()
@@ -38,7 +38,6 @@ class Bank
             }
         }
     }
-
 
     private static void LogIn()
     {
@@ -93,14 +92,31 @@ class Bank
     private static void CreateAccount(string username, string password)
     {
         int index = BankDB.FindEmptyAccount();
-        try
+
+        if (BankDB.IsAdmin)
         {
-            BankDB.accounts[index].Username = username;
-            BankDB.accounts[index].Password = password;
+            Admin admin = new(username, password);
+            try
+            {
+                BankDB.accounts[index] = admin;
+            }
+            catch (IndexOutOfRangeException)
+            {
+                Console.WriteLine("There no avaliable space for this account");
+            }
+
         }
-        catch (Exception)
+        else
         {
-            Console.WriteLine("There no avaliable space for this account");
+            User user = new(username, password, new Card());
+            try
+            {
+                BankDB.accounts[index] = user;
+            }
+            catch (IndexOutOfRangeException)
+            {
+                Console.WriteLine("There no avaliable space for this account");
+            }
         }
     }
 

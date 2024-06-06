@@ -14,6 +14,8 @@ class BankDB
         ReadFile();
     }
 
+    public static bool IsAdmin { get; set; }
+
     private static void PrintFile()
     {
         using StreamWriter file = new(fileName);
@@ -41,7 +43,6 @@ class BankDB
 
     }
 
-    public static bool IsAdmin { get; set; }
 
     public static bool isExist(Account userAccount)
     {
@@ -49,8 +50,8 @@ class BankDB
         for (int i = 0; i < maxAccountCount; i++)
             if (accounts[i].Username == userAccount.Username)
             {
-                //if (i > adminAccountCount)
-                //    IsAdmin = false;
+                if (i > maxAccountCount / 2)
+                    IsAdmin = false;
                 return true;
             }
         return false;
@@ -69,7 +70,7 @@ class BankDB
     public static int FindEmptyAccount()
     {
         for (int i = 0; i < maxAccountCount; i++)
-            if (accounts[i] == null)
+            if (accounts[i].Username == "")
                 return i;
         return -1;
     }
