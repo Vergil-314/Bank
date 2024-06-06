@@ -3,12 +3,11 @@
 class User : Account
 {
 
-    private Card userCard;
-    public Card Card { get => userCard; }
+    public Card Card { get; set; }
 
     public User(string username, string password, Card card) : base(username, password)
     {
-        userCard = card;
+        Card = card;
     }
 
     public void MainMenu()
@@ -22,8 +21,7 @@ class User : Account
             Console.WriteLine("What would you like to do?\n");
             Console.WriteLine("1. Get Salary");
             Console.WriteLine("2. Transfer Money");
-            Console.WriteLine("9. Log Out");
-            Console.WriteLine("0. Exit");
+            Console.WriteLine("0. Log Out");
             Console.WriteLine("-----------------------------");
 
             string choice = Console.ReadLine();

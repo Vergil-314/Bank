@@ -2,8 +2,13 @@
 
 static class BankDB
 {
-    private const int maxAccountCount = 10;
+    private const int maxAccountCount = maxUserAccountsCount + maxAdminAccountsCount;
+    private const int maxUserAccountsCount = 7;
     private const int maxAdminAccountsCount = 3;
+
+    public static User[] userAccounts = new User[maxUserAccountsCount];
+    public static Admin[] adminAccounts = new Admin[maxAdminAccountsCount];
+
     public static Account[] accounts = new Account[maxAccountCount];
 
     private const string fileName = "Data.txt";
@@ -12,7 +17,7 @@ static class BankDB
     {
         Directory.SetCurrentDirectory("C:\\Users\\User\\source\\repos\\Bank_V2\\Bank_V2\\Data");
 
-        ReadFile();
+        //ReadFile();
     }
 
     public static bool IsAdmin { get; set; }
@@ -21,38 +26,59 @@ static class BankDB
     {
         using StreamWriter file = new(fileName);
 
-        foreach (Account account in accounts)
-            file.WriteLine(account.Username + " " + account.Password);
+        for (int i = 0; i < maxAccountCount; i++) // Write Admin Data
+            file.WriteLine(adminAccounts[i].Username + " " + adminAccounts[i].Password);
+
+        for (int i = 0; i < maxUserAccountsCount; i++) // Write User Data
+        {
+            file.Write(userAccounts[i].Username + " ");
+            file.Write(userAccounts[i].Password + " ");
+            file.Write(userAccounts[i].Card.ID  + " " + userAccounts[i].Card.Balance);
+            file.WriteLine();
+        }
+
     }
 
     private static void ReadFile()
     {
         using StreamReader file = new(fileName);
 
-        for (int i = 0; i < maxAccountCount; i++)
+        for (int i = 0; i < maxAdminAccountsCount; i++) // Read Admin's Data
         {
             string str = file.ReadLine() ?? " ";
-
             string[] credentials = str.Split(' ');
 
             try 
             {
-                accounts[i] = new Account(credentials[0], credentials[1]);
+                adminAccounts[i] = new Admin(credentials[0], credentials[1]);
             }
             catch (Exception) { }
-
         }
+
+        for (int i = 0; i < maxUserAccountsCount; i++)
+        {
+            string str = file.ReadLine() ?? " ";
+            string[] credentials = str.Split(' ');
+
+            try
+            {
+                userAccounts[i] = new User(credentials[0], credentials[1],
+                    new Card(credentials[2], decimal.Parse(credentials[3])));
+            }
+            catch (Exception) { }
+        }
+
 
     }
 
 
-    public static bool isExist(Account userAccount)
+    public static bool isExist(string username)
     {
         IsAdmin = true;
         for (int i = 0; i < maxAccountCount; i++)
-            if (accounts[i].Username == userAccount.Username)
+            if (accounts[i].Username == username)
             {
-                if (i > maxAdminAccountsCount)
+                if (i >= maxAdminAccountsCount)
                     IsAdmin = false;
                 return true;
             }
@@ -71,8 +97,8 @@ static class BankDB
 
     public static int FindEmptySpaceForUserAccount() // Need to change the name
     {
-        for (int i = maxAdminAccountsCount - 1; i < maxAccountCount; i++)
-            if (accounts[i].Username == "")
+        for (int i = 0; i < maxUserAccountsCount; i++)
+            if (userAccounts[i].Username == "")
                 return i;
 
         return -1;
@@ -81,7 +107,7 @@ static class BankDB
     public static int FindEmptySpaceForAdminAccount() // Also need to change the name
     {
         for (int i = 0; i < maxAdminAccountsCount; i++)
-            if (accounts[i].Username == "")
+            if (adminAccounts[i].Username == "")
                 return i;
 
         return -1;

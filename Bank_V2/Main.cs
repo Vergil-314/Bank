@@ -50,9 +50,9 @@ class Main
         string username = Credentials.GetUsername();
         string password = Credentials.GetPassword();
 
-        Account account = new Account(username, password);
+        Account account = new(username, password);
 
-        if (BankDB.isExist(account))
+        if (BankDB.isExist(username))
             if (BankDB.isCorrect(account))
                 if (BankDB.IsAdmin)
                 {
@@ -109,6 +109,12 @@ class Main
 
     public static void CreateUserAccount(string username, string password)
     {
+        if (BankDB.isExist(username))
+        {
+            Console.WriteLine("Account with such a Username and a Password already Exist");
+            return;
+        }
+
         int index = BankDB.FindEmptySpaceForUserAccount();
 
         User user = new(username, password, new Card());

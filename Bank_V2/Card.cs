@@ -4,6 +4,7 @@ class Card
 {
     private string id;
     private int idLength = 16;
+    private decimal balance;
     public string ID
     {
         get
@@ -20,14 +21,20 @@ class Card
     }
     public decimal Balance
     {
-        get => Balance;
+        get => balance;
         set
         {
             if (value < 0)
                 throw new ArgumentException("Balance Can't Be Less Than Zero");
 
-            Balance = value;
+            balance = value;
         }
+    }
+
+    public Card(string id = null, decimal balance = 0)
+    {
+        this.id = id;
+        Balance = balance;
     }
 
 }
