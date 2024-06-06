@@ -16,8 +16,6 @@ class BankDB
     {
         using StreamWriter file = new(fileName);
 
-        file.WriteLine(maxAccountCount);
-
         foreach (Account account in accounts)
             Console.WriteLine(account.Username + " " + account.Password);
     }
