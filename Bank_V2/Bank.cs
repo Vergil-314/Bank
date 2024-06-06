@@ -66,7 +66,9 @@ class Bank
 
     private static void CreateAccount(string username, string password)
     {
-        //BankDB.accounts[FindEmptyAccount()]
+        int index = BankDB.FindEmptyAccount();
+        BankDB.accounts[index].Username = username;
+        BankDB.accounts[index].Password = password;
     }
 
 
