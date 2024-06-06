@@ -31,11 +31,12 @@ class BankDB
 
         for (int i = 0; i < maxAccountCount; i++)
         {
-            string str = file.ReadLine();
-            string[] credentials = str.Split(' ');
+            string str = file.ReadLine() ?? " ";
 
-            try
+            try 
             {
+                string[] credentials = str.Split(' ');
+
                 accounts[i] = new Account(credentials[0], credentials[1]);
             }
             catch (Exception) { }
