@@ -3,14 +3,24 @@
 class BankDB
 {
     private const int maxAccountCount = 10;
-    private const int adminAccountCount = maxAccountCount / 2;
     public static Account[] accounts = new Account[maxAccountCount];
+
+    private const string fileName = "Data.txt";
 
     static BankDB()
     {
         Directory.SetCurrentDirectory("C:\\Users\\User\\source\\repos\\Bank_V2\\Bank_V2\\Data");
     }
 
+    private static void PrintFile()
+    {
+        using StreamWriter file = new(fileName);
+
+        file.WriteLine(maxAccountCount);
+
+        foreach (Account account in accounts)
+            Console.WriteLine(account.Username + " " + account.Password);
+    }
 
 
     public static bool IsAdmin { get; set; }
