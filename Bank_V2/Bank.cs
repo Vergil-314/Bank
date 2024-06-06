@@ -64,5 +64,10 @@ class Bank
 
     }
 
+    private static void CreateAccount(string username, string password)
+    {
+        //BankDB.accounts[FindEmptyAccount()]
+    }
+
 
 }

@@ -64,7 +64,13 @@ class BankDB
         return false;
     }
 
-
+    public static int FindEmptyAccount()
+    {
+        for (int i = 0; i < maxAccountCount; i++)
+            if (accounts[i] == null)
+                return i;
+        return -1;
+    }
 
 
 }
