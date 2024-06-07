@@ -1,8 +1,4 @@
-﻿using Bank_V2;
-using System;
-using System.Reflection;
-
-namespace Bank_V2;
+﻿namespace Bank_V2;
 
 class Main
 {

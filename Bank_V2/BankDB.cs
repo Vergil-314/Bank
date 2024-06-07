@@ -1,6 +1,4 @@
-﻿using System.Security.Cryptography;
-
-namespace Bank_V2;
+﻿namespace Bank_V2;
 
 static class BankDB
 {
