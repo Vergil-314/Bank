@@ -109,8 +109,7 @@ class Main
             }
         }
     }
-
-
+    
     public static void CreateUserAccount(string username, string password)
     {
         if (BankDB.isExist(username))
