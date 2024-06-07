@@ -9,12 +9,12 @@ static class BankDB
     public static Admin[] adminAccounts = new Admin[maxAdminAccountsCount];
 
     private const string fileName = "Data.txt";
-    private const int AdminStringInFile = 2;
-    private const int UserStringInFile = 4;
+    private const int minAdminData = 2;
+    private const int minUserData = 4;
 
     static BankDB()
     {
-        Directory.SetCurrentDirectory("C:\\Users\\bebri\\source\\repos\\Bank_V2\\Bank_V2\\Data");
+        Directory.SetCurrentDirectory("C:\\Users\\User\\source\\repos\\Bank_V2\\Bank_V2\\Data");
 
         ReadFile();
     }
@@ -52,9 +52,9 @@ static class BankDB
             string str = file.ReadLine() ?? " ";
             string[] data = str.Split(' ');
 
-            if (data.Length < AdminStringInFile)
+            if (data.Length < minAdminData)
             {
-                string[] array = new string[AdminStringInFile];
+                string[] array = new string[minAdminData];
                 for (int j = 0; j < data.Length; j++)
                     array[j] = data[j];
                 data = array;
@@ -74,9 +74,9 @@ static class BankDB
             string str = file.ReadLine() ?? " ";
             string[] data = str.Split(' ');
 
-            if (data.Length < UserStringInFile)
+            if (data.Length < minUserData)
             {
-                string[] array = new string[UserStringInFile];
+                string[] array = new string[minUserData];
                 for (int j = 0; j < data.Length; j++)
                     array[j] = data[j];
                 data = array;
