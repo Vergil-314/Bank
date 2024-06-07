@@ -33,7 +33,7 @@ class Main
                     break;
 
                 case "2":
-                    CreateUserAccount(Credentials.GetUsername(), Credentials.GetPassword());
+                    Create.UserAccount(Credentials.GetUsername(), Credentials.GetPassword());
                     break;
 
                 case "3":
@@ -99,7 +99,7 @@ class Main
             {
                 case "1":
                     isValid = true;
-                    CreateUserAccount(username, password);
+                    Create.UserAccount(username, password);
                     break;
                 case "2":
                     isValid = true;
@@ -110,53 +110,5 @@ class Main
         }
     }
     
-    public static void CreateUserAccount(string username, string password)
-    {
-        if (BankDB.isExist(username))
-        {
-            Console.Clear();
-            Console.WriteLine("Account with such a Username and a Password already Exist\n");
-            return;
-        }
-
-        int index = BankDB.FindEmptySpaceForUserAccount();
-
-        User user = new(username, password, new Card());
-        Console.Clear();
-
-        try
-        {
-            BankDB.userAccounts[index] = user;
-        }
-        catch (IndexOutOfRangeException)
-        {
-            Console.WriteLine("There no avaliable space for this account\n");
-            return;
-        }
-
-        BankDB.PrintFile();
-        Console.WriteLine("Account has been Created Succesfully\n");
-
-    }
-
-    public static void CreateAdminAccount(string username, string password)
-    {
-        int index = BankDB.FindEmptySpaceForAdminAccount();
-
-        Admin admin = new(username, password);
-        Console.Clear();
-
-        try
-        {
-            BankDB.adminAccounts[index] = admin;
-        }
-        catch (IndexOutOfRangeException)
-        {
-            Console.WriteLine("There no avaliable space for this account\n");
-            return;
-        }
-
-        BankDB.PrintFile();
-        Console.WriteLine("Account has been Created Succesfully\n");
-    }
+    
 }
