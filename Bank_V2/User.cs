@@ -18,6 +18,8 @@ class User : Account
             Console.Clear();
 
             Console.WriteLine("Hello " + Username + "!");
+            Console.WriteLine("Your Card Number is: " + Card.ID);
+            Console.WriteLine("Your Balance is: " + Card.Balance);
             Console.WriteLine("What would you like to do?\n");
             Console.WriteLine("1. Get Salary");
             Console.WriteLine("2. Transfer Money");

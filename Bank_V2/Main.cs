@@ -53,7 +53,9 @@ class Main
         Account account = new(username, password);
 
         if (BankDB.isExist(username))
+
             if (BankDB.isCorrect(account))
+
                 if (BankDB.IsAdmin)
                 {
                     Admin admin = new(account.Username, account.Password);
