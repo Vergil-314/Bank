@@ -40,7 +40,7 @@ class User : Account
                     break;
 
                 case "2":
-                    // Method TransferMoney()
+                    TransferMoney();
                     break;
 
                 case "3":
@@ -65,6 +65,35 @@ class User : Account
         }
     }
 
+
+    private void TransferMoney()
+    {
+        Console.WriteLine("How much money do you want to transfer?");
+        decimal count = decimal.Parse(Console.ReadLine());
+
+        Console.Clear();
+
+        if (count > Card.Balance || count <= 0)
+        {
+            Console.WriteLine("This opperation can't be applied\n");
+            return;
+        }
+
+        User user = BankDB.FindUserAccount(Credentials.GetUsername("Enter Username: "));
+
+        Console.Clear();
+
+        if (user == null)
+        {
+            Console.WriteLine("This user doesn't exist\n");
+            return;
+        }
+
+        user.Card.Balance += count;
+        Card.Balance -= count;
+
+        BankDB.PrintFile();
+    }
 
     private void GetSalary(int salary = 0)
     {
@@ -93,6 +122,7 @@ class User : Account
         }
         
         Card.Balance += salary;
+        BankDB.PrintFile();
     }
 
     private void ChangeSalary()
@@ -118,6 +148,7 @@ class User : Account
         }
         Console.Clear();
 
+        BankDB.PrintFile();
         Console.WriteLine("Salary has been Changed\n");
     }
 

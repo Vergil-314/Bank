@@ -73,10 +73,13 @@ class Credentials
     public static string GetPassword(string text = "Enter Your Password: ")
     {
         Console.Clear();
+        Console.WriteLine("Username: " + Username);
 
         bool isValid = false;
         while (!isValid)
         {
+            
+
             Console.Write(text);
 
             try
@@ -87,7 +90,8 @@ class Credentials
             catch (Exception exception)
             {
                 Console.Clear();
-                Console.WriteLine(exception.Message);
+                Console.WriteLine(exception.Message + "\n");
+                Console.WriteLine("Username: " + Username);
             }
 
         }
