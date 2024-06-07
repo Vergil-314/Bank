@@ -3,7 +3,7 @@
 class User : Account
 {
 
-    public Card Card { get; set; }
+    public Card Card { get; private set; }
 
     public User(string username, string password, Card card) : base(username, password)
     {
@@ -48,7 +48,7 @@ class User : Account
                     break;
 
                 case "4":
-                    ChangePassword();
+                    Password = ChangePassword();
                     break;
 
                 case "5":
