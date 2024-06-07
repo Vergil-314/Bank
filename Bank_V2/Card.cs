@@ -31,6 +31,17 @@ class Card
         }
     }
 
+    public int Salary
+    {
+        get => Salary;
+        set
+        {
+            if (value < 0)
+                throw new ArgumentException("Salary Can't Be Less Than Zero");
+
+            Salary = value;
+        }
+    }
     public Card(string id = null, decimal balance = 0)
     {
         this.id = id;

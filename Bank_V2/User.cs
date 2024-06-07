@@ -32,7 +32,7 @@ class User : Account
             switch (choice)
             {
                 case "1":
-                    // Method GetSalary()
+                    GetSalary();
                     break;
 
                 case "2":
@@ -46,6 +46,18 @@ class User : Account
             }
 
         }
+    }
+
+
+    private void GetSalary(int salary = 0)
+    {
+        if (salary == 0)
+        {
+            Console.Write("Enter Your Salary: ");
+            int.TryParse(Console.ReadLine(), out salary);
+        }
+
+        Card.Balance += salary;
     }
 
 
