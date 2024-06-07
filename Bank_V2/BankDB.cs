@@ -22,7 +22,7 @@ static class BankDB
         ReadFile();
     }
 
-    public static bool IsAdmin { get; set; }
+    public static bool IsAdmin { get; private set; }
 
     public static void PrintFile()
     {
@@ -107,8 +107,25 @@ static class BankDB
 
     public static void DeleteUserAccount(User userAccount)
     {
+        string username = Credentials.GetUsername();
+        string password = Credentials.GetPassword();
+
+        User account = FindUserAccount(username);
+
+        if (account == null)
+        {
+            Console.WriteLine("Account doesn't exist");
+            return;
+        }
+
+        if (account.Username != username || account.Password != password)
+        {
+            Console.WriteLine("Username or Password are Incorrect");
+            return;
+        }
+
         for (int i = 0; i < maxUserAccountsCount; i++)
-            if (userAccounts[i].Username == userAccount.Username)
+            if (userAccounts[i] == account)
             {
                 userAccounts[i] = null;
                 return;
@@ -129,8 +146,13 @@ static class BankDB
     public static User FindUserAccount(string username)
     {
         foreach (User user in userAccounts)
+        {
+            if (user == null)
+                return null;
+
             if (user.Username == username)
                 return user;
+        }
 
         return null;
     }
@@ -138,8 +160,13 @@ static class BankDB
     public static Admin FindAdminAccount(string username)
     {
         foreach (Admin admin in adminAccounts)
+        {
+            if (admin == null)
+                return null;
+
             if (admin.Username == username)
                 return admin;
+        }
 
         return null;
     }
@@ -147,29 +174,25 @@ static class BankDB
     public static bool isExist(string username)
     {
         IsAdmin = true;
-        foreach (Admin admin in adminAccounts)
-            if ((admin.Username) == username)
-                return true;
+        if(FindAdminAccount(username) != null)
+            return true;
 
         IsAdmin = false;
-        foreach (User user in userAccounts)
-            if (user != null)
-                if (user.Username == username)
-                    return true;
+        if (FindUserAccount(username) != null)
+            return true;
 
         return false;
     }
 
     public static bool isCorrect(Account account)
     {
-        foreach (Admin admin in adminAccounts)
-            if (admin.Username == account.Username && admin.Password == account.Password)
-                return true;
+        Admin admin = FindAdminAccount(account.Username);
+        if (admin.Username == account.Username && admin.Password == account.Password)
+            return true;
 
-        foreach (User user in userAccounts)
-            if (user != null)
-                if (user.Username == account.Username && user.Password == account.Password)
-                    return true;
+        User user = FindUserAccount(account.Username);
+        if (user.Username == account.Username && user.Password == account.Password)
+            return true;
 
         return false;
     }
@@ -177,12 +200,8 @@ static class BankDB
     public static int FindEmptySpaceForUserAccount() // Need to change the name
     {
         for (int i = 0; i < maxUserAccountsCount; i++)
-            try
-            {
-                if (userAccounts[i] == null)
-                    return i;
-            }
-            catch (Exception) { }
+            if (userAccounts[i] == null)
+                return i;
 
         return -1;
     }
@@ -190,7 +209,7 @@ static class BankDB
     public static int FindEmptySpaceForAdminAccount() // Also need to change the name
     {
         for (int i = 0; i < maxAdminAccountsCount; i++)
-            if (adminAccounts[i].Username == "")
+            if (adminAccounts[i] == null)
                 return i;
 
         return -1;
