@@ -42,6 +42,7 @@ class Main
 
                 case "0":
                     isExit = true;
+                    BankDB.PrintFile();
                     break;
             }
         }
@@ -102,7 +103,7 @@ class Main
                     break;
                 case "2":
                     isValid = true;
-                    MainMenu();
+                    Console.Clear();
                     break;
 
             }

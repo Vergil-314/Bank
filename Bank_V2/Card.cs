@@ -3,8 +3,11 @@
 class Card
 {
     private string id;
-    private int idLength = 16;
+    private const int idLength = 16;
+
     private decimal balance;
+
+    private int salary;
     public string ID
     {
         get
@@ -33,21 +36,22 @@ class Card
 
     public int Salary
     {
-        get => Salary;
+        get => salary;
         set
         {
             if (value < 0)
                 throw new ArgumentException("Salary Can't Be Less Than Zero");
 
-            Salary = value;
+            salary = value;
         }
     }
-    public Card(string id = null, decimal balance = 0)
+
+    public Card(string id = null, decimal balance = 0, int salary = 0)
     {
         this.id = id;
-        Balance = balance;
+        this.balance = balance;
+        this.salary = salary;
     }
-
 
     public void DiplayID()
     {

@@ -1,4 +1,6 @@
-﻿namespace Bank_V2;
+﻿using System.Security.Cryptography;
+
+namespace Bank_V2;
 
 static class BankDB
 {
@@ -10,6 +12,8 @@ static class BankDB
     public static Admin[] adminAccounts = new Admin[maxAdminAccountsCount];
 
     private const string fileName = "Data.txt";
+    private const string nullAdminStringInFile = " ";
+    private const string nullUserStringInFile = "    ";
 
     static BankDB()
     {
@@ -33,7 +37,9 @@ static class BankDB
             {    
                 file.Write(userAccounts[i].Username + " ");
                 file.Write(userAccounts[i].Password + " ");
-                file.Write(userAccounts[i].Card.ID  + " " + userAccounts[i].Card.Balance);
+                file.Write(userAccounts[i].Card.ID  + " ");
+                file.Write(userAccounts[i].Card.Balance + " ");
+                file.Write(userAccounts[i].Card.Salary);
                 file.WriteLine();
             }
         }
@@ -46,25 +52,50 @@ static class BankDB
 
         for (int i = 0; i < maxAdminAccountsCount; i++) // Read Admin's Data
         {
-            string str = file.ReadLine() ?? " ";
+            string str = file.ReadLine() ?? nullAdminStringInFile;
             string[] data = str.Split(' ');
+
+            if (data.Length < nullAdminStringInFile.Length)
+            {
+                string[] array = new string[nullUserStringInFile.Length];
+                for (int j = 0; j < array.Length; j++)
+                    array[i] = data[i];
+            }
 
             try 
             {
-                adminAccounts[i] = new Admin(data[0], data[1]);
+                adminAccounts[i] = new Admin(
+                    username: data[0],
+                    password: data[1]);
             }
             catch (Exception) { }
         }
 
         for (int i = 0; i < maxUserAccountsCount; i++) // Read User's Data
         {
-            string str = file.ReadLine() ?? "    ";
+            string str = file.ReadLine() ?? nullUserStringInFile;
             string[] data = str.Split(' ');
+
+            if (data.Length < nullUserStringInFile.Length)
+            {
+                string[] array = new string[nullUserStringInFile.Length];
+                for (int j = 0; j < array.Length; j++)
+                    array[i] = data[i];
+            }
+
 
             try
             {
-                userAccounts[i] = new User(data[0], data[1],
-                    new Card(data[2], decimal.Parse(data[3])));
+                userAccounts[i] = new User(
+                    username: data[0],
+                    password: data[1],
+
+                    new Card
+                    (
+                        id:      data[2],
+                        balance: decimal.Parse(data[3]),
+                        salary:  int.Parse(data[4])
+                        ));
             }
             catch (Exception) { }
         }

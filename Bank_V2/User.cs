@@ -32,7 +32,7 @@ class User : Account
             switch (choice)
             {
                 case "1":
-                    GetSalary();
+                    GetSalary(Card.Salary);
                     break;
 
                 case "2":
@@ -51,12 +51,29 @@ class User : Account
 
     private void GetSalary(int salary = 0)
     {
+        Console.Clear();
+
         if (salary == 0)
         {
-            Console.Write("Enter Your Salary: ");
-            int.TryParse(Console.ReadLine(), out salary);
-        }
+            bool isValid = false;
+            while (!isValid)
+            {
+                Console.Clear();
 
+                Console.Write("Enter Your Salary: ");
+                try
+                {
+                    int.TryParse(Console.ReadLine(), out salary);
+                    isValid = true;
+                    Card.Salary = salary;
+                }
+                catch (Exception exception)
+                {
+                    Console.WriteLine(exception.Message);
+                }
+            }
+        }
+        
         Card.Balance += salary;
     }
 
