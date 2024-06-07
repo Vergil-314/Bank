@@ -47,6 +47,8 @@ class User : Account
 
                 case "4":
                     BankDB.DeleteUserAccount(new User(Username, Password, Card));
+                    isExit = true;
+                    Console.Clear();
                     break;
                     
                 case "0":

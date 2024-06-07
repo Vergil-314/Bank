@@ -89,7 +89,7 @@ class Main
             Console.WriteLine("This Account Doesn't Exist\n");
             Console.WriteLine("What do you want to do?");
             Console.WriteLine("1. Create a New Account");
-            Console.WriteLine("2. Go Back");
+            Console.WriteLine("0. Go Back");
             Console.WriteLine("-----------------------------");
 
 
@@ -101,7 +101,7 @@ class Main
                     isValid = true;
                     Create.UserAccount(username, password);
                     break;
-                case "2":
+                case "0":
                     isValid = true;
                     Console.Clear();
                     break;
