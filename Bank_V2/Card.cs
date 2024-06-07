@@ -40,7 +40,7 @@ class Card
         set
         {
             if (value <= 0)
-                throw new ArgumentException("Salary Can't Be Equal and Less Than Zero");
+                throw new ArgumentException("Salary Can't Be Equal or Less Than Zero");
 
             salary = value;
         }

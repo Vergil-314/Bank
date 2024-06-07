@@ -17,7 +17,6 @@ class Main
             Console.WriteLine("What do you want to do?");
             Console.WriteLine("1. Log In");
             Console.WriteLine("2. Sign up");
-            Console.WriteLine("3. Change Password");
             Console.WriteLine("0. Quit");
             Console.WriteLine("-----------------------------");
 
@@ -34,10 +33,6 @@ class Main
 
                 case "2":
                     Create.UserAccount(Credentials.GetUsername(), Credentials.GetPassword());
-                    break;
-
-                case "3":
-                    // ChangePassword();
                     break;
 
                 case "0":
@@ -112,5 +107,5 @@ class Main
         }
     }
     
-    
+
 }

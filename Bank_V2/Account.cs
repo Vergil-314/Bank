@@ -13,4 +13,7 @@ class Account
         Password = password;
     }
 
+    protected string ChangePassword() => Credentials.GetPassword("Enter new Password: ");
+
+
 }

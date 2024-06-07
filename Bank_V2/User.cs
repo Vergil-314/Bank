@@ -16,7 +16,7 @@ class User : Account
         while (!isExit)
         {
 
-            Console.WriteLine("Hello " + Username + "!");
+            Console.WriteLine("Wellcum " + Username + "!");
             Console.Write("Your Card Number is: "); Card.DiplayID();
 
             Console.WriteLine("Your Balance is: " + Card.Balance);
@@ -24,7 +24,8 @@ class User : Account
             Console.WriteLine("1. Get Salary");
             Console.WriteLine("2. Transfer Money");
             Console.WriteLine("3. Change Salary");
-            Console.WriteLine("4. Delete Account");
+            Console.WriteLine("4. Change Password");
+            Console.WriteLine("5. Delete Account");
             Console.WriteLine("0. Log Out");
             Console.WriteLine("-----------------------------");
 
@@ -47,6 +48,10 @@ class User : Account
                     break;
 
                 case "4":
+                    ChangePassword();
+                    break;
+
+                case "5":
                     Delete.UserAccount(Username);
                     isExit = true;
                     break;
@@ -77,6 +82,7 @@ class User : Account
                     int.TryParse(Console.ReadLine(), out salary);
                     Card.Salary = salary;
                     isValid = true;
+                    Console.Clear();
                 }
                 catch (Exception exception)
                 {
