@@ -78,17 +78,14 @@ static class BankDB
     {
         IsAdmin = true;
         foreach (Admin admin in adminAccounts)
-            if ((admin.Username ?? "") == username)
+            if ((admin.Username) == username)
                 return true;
 
         IsAdmin = false;
         foreach (User user in userAccounts)
-            try
-            {
+            if (user != null)
                 if (user.Username == username)
                     return true;
-            }
-            catch (Exception) { }
 
         return false;
     }
@@ -100,8 +97,9 @@ static class BankDB
                 return true;
 
         foreach (User user in userAccounts)
-            if (user.Username == account.Username && user.Password == account.Password)
-                return true;
+            if (user != null)
+                if (user.Username == account.Username && user.Password == account.Password)
+                    return true;
 
         return false;
     }

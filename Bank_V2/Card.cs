@@ -37,4 +37,19 @@ class Card
         Balance = balance;
     }
 
+
+    public string DiplayID()
+    {
+        int i = 0;
+        string str = "";
+        foreach (char num in ID)
+        {
+            str += num;
+            if (i % 4 == 0)
+                str += " ";
+            i++;
+        }
+        return str;
+    }
+
 }

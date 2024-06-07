@@ -9,10 +9,10 @@ class Main
 
     public static void MainMenu()
     {
+        bool clearConsole = false;
         bool isExit = false;
         while (!isExit)
         {
-            Console.Clear();
 
             Console.WriteLine("What do you want to do?");
             Console.WriteLine("1. Log In");
@@ -23,6 +23,8 @@ class Main
 
 
             string option = Console.ReadLine();
+
+            Console.Clear();
 
             switch (option)
             {
@@ -67,14 +69,13 @@ class Main
                     user.MainMenu();
                 }
             else
-                Console.WriteLine("Username or Password is Incorrect");
+            {
+                Console.Clear();
+                Console.WriteLine("Username or Password is Incorrect\n");
+            }
 
         else
-        {
-
             AddAccount(username, password);
-        }
-        
     }
 
 
@@ -113,7 +114,8 @@ class Main
     {
         if (BankDB.isExist(username))
         {
-            Console.WriteLine("Account with such a Username and a Password already Exist");
+            Console.Clear();
+            Console.WriteLine("Account with such a Username and a Password already Exist\n");
             return;
         }
 

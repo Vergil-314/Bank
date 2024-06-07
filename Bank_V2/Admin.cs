@@ -41,6 +41,7 @@ class Admin : Account
 
                 case "0":
                     isExit = true;
+                    Console.Clear();
                     break;
             }
 
