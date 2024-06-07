@@ -36,7 +36,11 @@ class Admin : Account
                     break;
 
                 case "2":
-                    //Main.CreateAdminAccount();
+                    Main.CreateAdminAccount(Credentials.GetUsername(), Credentials.GetPassword());
+                    break;
+
+                case "3":
+                    Main.CreateUserAccount(Credentials.GetUsername(), Credentials.GetPassword());
                     break;
 
                 case "0":

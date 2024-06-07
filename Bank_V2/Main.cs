@@ -131,6 +131,7 @@ class Main
         catch (IndexOutOfRangeException)
         {
             Console.WriteLine("There no avaliable space for this account");
+            return;
         }
 
         BankDB.PrintFile();
@@ -152,6 +153,7 @@ class Main
         catch (IndexOutOfRangeException)
         {
             Console.WriteLine("There no avaliable space for this account");
+            return;
         }
 
         BankDB.PrintFile();
