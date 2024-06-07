@@ -162,7 +162,7 @@ static class BankDB
 
         return false;
     }
-
+    
     public static int FindEmptySpaceForUserAccount() // Need to change the name
     {
         for (int i = 0; i < maxUserAccountsCount; i++)

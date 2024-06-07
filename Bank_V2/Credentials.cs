@@ -46,17 +46,14 @@ class Credentials
     }
 
 
-    public static string GetUsername(string text = "")
+    public static string GetUsername(string text = "Enter Your Username: ")
     {
         Console.Clear();
-
-        if (text != "")
-            Console.WriteLine(text);
 
         bool isValid = false;
         while (!isValid)
         {
-            Console.Write("Enter Your Username: ");
+            Console.Write(text);
 
             try
             {
@@ -73,17 +70,14 @@ class Credentials
         return Username;
     }
 
-    public static string GetPassword(string text = "")
+    public static string GetPassword(string text = "Enter Your Password: ")
     {
         Console.Clear();
-
-        if (text != "")
-            Console.WriteLine(text);
 
         bool isValid = false;
         while (!isValid)
         {
-            Console.Write("Enter Your Password: ");
+            Console.Write(text);
 
             try
             {

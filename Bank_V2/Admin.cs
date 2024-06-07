@@ -22,6 +22,8 @@ class Admin : Account
             Console.WriteLine("1. Quit this job");
             Console.WriteLine("2. Create a New Admin Account");
             Console.WriteLine("3. Create a New User Account");
+            Console.WriteLine("4. Delete Admin Account");
+            Console.WriteLine("5. Delete User Account");
             Console.WriteLine("0. Log Out");
             Console.WriteLine("-----------------------------");
 
@@ -36,11 +38,19 @@ class Admin : Account
                     break;
 
                 case "2":
-                    Create.AdminAccount(Credentials.GetUsername(), Credentials.GetPassword());
+                    Create.AdminAccount(Credentials.GetUsername("Enter Username: "), Credentials.GetPassword("Enter Password: "));
                     break;
 
                 case "3":
-                    Create.UserAccount(Credentials.GetUsername(), Credentials.GetPassword());
+                    Create.UserAccount(Credentials.GetUsername("Enter Username: "), Credentials.GetPassword("Enter Password: "));
+                    break;
+
+                case "4":
+                    Delete.AdminAccount(Credentials.GetUsername("Enter Username of Account that You want to Delete: "));
+                    break;
+
+                case "5":
+                    Delete.UserAccount(Credentials.GetUsername("Enter Username of Account that You want to Delete: "));
                     break;
 
                 case "0":

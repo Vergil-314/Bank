@@ -47,7 +47,8 @@ class User : Account
                     break;
 
                 case "4":
-                    isExit = Delete.UserAccount(Username);
+                    Delete.UserAccount(Username);
+                    isExit = true;
                     break;
                     
                 case "0":

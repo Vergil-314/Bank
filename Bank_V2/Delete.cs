@@ -3,7 +3,7 @@
 class Delete
 {
 
-    public static bool UserAccount(string username)
+    public static void UserAccount(string username)
     {
         Console.Clear();
 
@@ -14,13 +14,11 @@ class Delete
                 Console.Clear();
                 Console.WriteLine("Account has been Deleted\n");
                 BankDB.PrintFile();
-                return true;
+                return;
             }
-
-        return false;
     }
 
-    public static bool AdminAccount(string username)
+    public static void AdminAccount(string username)
     {
         for (int i = 0; i < BankDB.adminAccounts.Length; i++)
             if (BankDB.adminAccounts[i].Username == username)
@@ -29,10 +27,8 @@ class Delete
                 Console.Clear();
                 Console.WriteLine("Account has been Deleted\n");
                 BankDB.PrintFile();
-                return true;
+                return;
             }
-
-        return false;
     }
 
 }
