@@ -130,7 +130,7 @@ class Main
         }
         catch (IndexOutOfRangeException)
         {
-            Console.WriteLine("There no avaliable space for this account");
+            Console.WriteLine("There no avaliable space for this account\n");
             return;
         }
 
@@ -152,7 +152,7 @@ class Main
         }
         catch (IndexOutOfRangeException)
         {
-            Console.WriteLine("There no avaliable space for this account");
+            Console.WriteLine("There no avaliable space for this account\n");
             return;
         }
 
