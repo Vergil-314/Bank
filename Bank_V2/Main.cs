@@ -134,7 +134,6 @@ class Main
         }
 
         BankDB.PrintFile();
-
         Console.WriteLine("Account has been Created Succesfully\n");
 
     }
@@ -144,6 +143,8 @@ class Main
         int index = BankDB.FindEmptySpaceForAdminAccount();
 
         Admin admin = new(username, password);
+        Console.Clear();
+
         try
         {
             BankDB.adminAccounts[index] = admin;
@@ -153,6 +154,7 @@ class Main
             Console.WriteLine("There no avaliable space for this account");
         }
 
-        
+        BankDB.PrintFile();
+        Console.WriteLine("Account has been Created Succesfully\n");
     }
 }
