@@ -8,7 +8,7 @@ class Create
         if (BankDB.isExist(username))
         {
             Console.Clear();
-            Console.WriteLine("Account with such a Username and a Password already Exist\n");
+            Console.WriteLine("Account with this Username already exist\n");
             return;
         }
 
@@ -34,6 +34,13 @@ class Create
 
     public static void AdminAccount(string username, string password)
     {
+        if(BankDB.isExist(username))
+        {
+            Console.Clear();
+            Console.WriteLine("Account with this Username already exist\n");
+            return;
+        }
+
         int index = BankDB.FindEmptySpaceForAdminAccount();
 
         Admin admin = new(username, password);

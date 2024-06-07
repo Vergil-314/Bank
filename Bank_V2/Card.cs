@@ -39,8 +39,8 @@ class Card
         get => salary;
         set
         {
-            if (value < 0)
-                throw new ArgumentException("Salary Can't Be Less Than Zero");
+            if (value <= 0)
+                throw new ArgumentException("Salary Can't Be Equal and Less Than Zero");
 
             salary = value;
         }

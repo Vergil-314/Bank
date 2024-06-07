@@ -105,6 +105,27 @@ static class BankDB
     }
 
 
+    public static void DeleteUserAccount(User userAccount)
+    {
+        for (int i = 0; i < maxUserAccountsCount; i++)
+            if (userAccounts[i].Username == userAccount.Username)
+            {
+                userAccounts[i] = null;
+                return;
+            }
+    }
+
+    public static void DeleteAdminAccount(User userAccount)
+    {
+        for (int i = 0; i < maxAdminAccountsCount; i++)
+            if (adminAccounts[i].Username == userAccount.Username)
+            {
+                adminAccounts[i] = null;
+                return;
+            }
+    }
+
+
     public static User FindUserAccount(string username)
     {
         foreach (User user in userAccounts)

@@ -24,6 +24,8 @@ class User : Account
             Console.WriteLine("What would you like to do?\n");
             Console.WriteLine("1. Get Salary");
             Console.WriteLine("2. Transfer Money");
+            Console.WriteLine("3. Change Salary");
+            Console.WriteLine("4. Delete Account");
             Console.WriteLine("0. Log Out");
             Console.WriteLine("-----------------------------");
 
@@ -37,6 +39,14 @@ class User : Account
 
                 case "2":
                     // Method TransferMoney()
+                    break;
+
+                case "3":
+                    ChangeSalary();
+                    break;
+
+                case "4":
+                    BankDB.DeleteUserAccount(new User(Username, Password, Card));
                     break;
                     
                 case "0":
@@ -58,17 +68,17 @@ class User : Account
             bool isValid = false;
             while (!isValid)
             {
-                Console.Clear();
 
                 Console.Write("Enter Your Salary: ");
                 try
                 {
                     int.TryParse(Console.ReadLine(), out salary);
-                    isValid = true;
                     Card.Salary = salary;
+                    isValid = true;
                 }
                 catch (Exception exception)
                 {
+                    Console.Clear();
                     Console.WriteLine(exception.Message);
                 }
             }
@@ -77,5 +87,28 @@ class User : Account
         Card.Balance += salary;
     }
 
+    private void ChangeSalary()
+    {
+        Console.Clear();
+
+        bool isValid = false;
+        while (!isValid)
+        {
+
+            Console.Write("Enter Salary: ");
+            try
+            {
+                int.TryParse(Console.ReadLine(), out int salary);
+                Card.Salary = salary;
+                isValid = true;
+            }
+            catch (Exception exception)
+            {
+                Console.Clear();
+                Console.WriteLine(exception.Message);
+            }
+        }
+        Console.WriteLine("Salary has been Changed");
+    }
 
 }
