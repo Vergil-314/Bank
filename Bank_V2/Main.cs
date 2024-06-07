@@ -60,12 +60,12 @@ class Main
 
                 if (BankDB.IsAdmin)
                 {
-                    Admin admin = new(account.Username, account.Password);
+                    Admin admin = BankDB.FindAdminAccount(username);
                     admin.MainMenu();
                 }
                 else
                 {
-                    User user = new(account.Username, account.Password, new Card());
+                    User user = BankDB.FindUserAccount(username);
                     user.MainMenu();
                 }
             else

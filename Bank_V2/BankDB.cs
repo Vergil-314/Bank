@@ -74,6 +74,24 @@ static class BankDB
     }
 
 
+    public static User FindUserAccount(string username)
+    {
+        foreach (User user in userAccounts)
+            if (user.Username == username)
+                return user;
+
+        return null;
+    }
+
+    public static Admin FindAdminAccount(string username)
+    {
+        foreach (Admin admin in adminAccounts)
+            if (admin.Username == username)
+                return admin;
+
+        return null;
+    }
+
     public static bool isExist(string username)
     {
         IsAdmin = true;

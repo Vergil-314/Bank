@@ -38,18 +38,18 @@ class Card
     }
 
 
-    public string DiplayID()
+    public void DiplayID()
     {
         int i = 0;
-        string str = "";
         foreach (char num in ID)
         {
-            str += num;
-            if (i % 4 == 0)
-                str += " ";
+            if (i % 4 == 0 && i != 0)
+                Console.Write("-");
+
+            Console.Write(num);
             i++;
         }
-        return str;
+        Console.WriteLine();
     }
 
 }
