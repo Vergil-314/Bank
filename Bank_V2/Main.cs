@@ -122,6 +122,8 @@ class Main
         int index = BankDB.FindEmptySpaceForUserAccount();
 
         User user = new(username, password, new Card());
+        Console.Clear();
+
         try
         {
             BankDB.userAccounts[index] = user;
@@ -131,8 +133,9 @@ class Main
             Console.WriteLine("There no avaliable space for this account");
         }
 
-
         BankDB.PrintFile();
+
+        Console.WriteLine("Account has been Created Succesfully\n");
 
     }
 
@@ -149,5 +152,7 @@ class Main
         {
             Console.WriteLine("There no avaliable space for this account");
         }
+
+        
     }
 }
