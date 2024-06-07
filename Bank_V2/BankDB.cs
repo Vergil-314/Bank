@@ -2,7 +2,6 @@
 
 static class BankDB
 {
-    private const int maxAccountCount = maxUserAccountsCount + maxAdminAccountsCount;
     private const int maxUserAccountsCount = 7;
     private const int maxAdminAccountsCount = 3;
 
