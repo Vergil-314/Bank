@@ -46,9 +46,12 @@ class Credentials
     }
 
 
-    public static string GetUsername()
+    public static string GetUsername(string text = "")
     {
         Console.Clear();
+
+        if (text != "")
+            Console.WriteLine(text);
 
         bool isValid = false;
         while (!isValid)
@@ -70,9 +73,12 @@ class Credentials
         return Username;
     }
 
-    public static string GetPassword()
+    public static string GetPassword(string text = "")
     {
         Console.Clear();
+
+        if (text != "")
+            Console.WriteLine(text);
 
         bool isValid = false;
         while (!isValid)

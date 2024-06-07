@@ -62,11 +62,13 @@ class Main
                 if (BankDB.IsAdmin)
                 {
                     Admin admin = BankDB.FindAdminAccount(username);
+                    Console.Clear();
                     admin.MainMenu();
                 }
                 else
                 {
                     User user = BankDB.FindUserAccount(username);
+                    Console.Clear();
                     user.MainMenu();
                 }
             else

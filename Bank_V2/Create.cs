@@ -5,9 +5,10 @@ class Create
 
     public static void UserAccount(string username, string password)
     {
+        Console.Clear();
+
         if (BankDB.isExist(username))
         {
-            Console.Clear();
             Console.WriteLine("Account with this Username already exist\n");
             return;
         }
@@ -15,7 +16,6 @@ class Create
         int index = BankDB.FindEmptySpaceForUserAccount();
 
         User user = new(username, password, new Card());
-        Console.Clear();
 
         try
         {

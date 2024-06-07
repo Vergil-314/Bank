@@ -15,7 +15,6 @@ class User : Account
         bool isExit = false;
         while (!isExit)
         {
-            Console.Clear();
 
             Console.WriteLine("Hello " + Username + "!");
             Console.Write("Your Card Number is: "); Card.DiplayID();
@@ -30,6 +29,8 @@ class User : Account
             Console.WriteLine("-----------------------------");
 
             string choice = Console.ReadLine();
+
+            Console.Clear();
 
             switch (choice)
             {
@@ -46,9 +47,7 @@ class User : Account
                     break;
 
                 case "4":
-                    BankDB.DeleteUserAccount(new User(Username, Password, Card));
-                    isExit = true;
-                    Console.Clear();
+                    isExit = Delete.UserAccount(Username);
                     break;
                     
                 case "0":
@@ -110,7 +109,9 @@ class User : Account
                 Console.WriteLine(exception.Message);
             }
         }
-        Console.WriteLine("Salary has been Changed");
+        Console.Clear();
+
+        Console.WriteLine("Salary has been Changed\n");
     }
 
 }

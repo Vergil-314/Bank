@@ -12,8 +12,8 @@ static class BankDB
     public static Admin[] adminAccounts = new Admin[maxAdminAccountsCount];
 
     private const string fileName = "Data.txt";
-    private const string nullAdminStringInFile = " ";
-    private const string nullUserStringInFile = "    ";
+    private const int AdminStringInFile = 2;
+    private const int UserStringInFile = 4;
 
     static BankDB()
     {
@@ -52,14 +52,15 @@ static class BankDB
 
         for (int i = 0; i < maxAdminAccountsCount; i++) // Read Admin's Data
         {
-            string str = file.ReadLine() ?? nullAdminStringInFile;
+            string str = file.ReadLine() ?? " ";
             string[] data = str.Split(' ');
 
-            if (data.Length < nullAdminStringInFile.Length)
+            if (data.Length < AdminStringInFile)
             {
-                string[] array = new string[nullUserStringInFile.Length];
-                for (int j = 0; j < array.Length; j++)
-                    array[i] = data[i];
+                string[] array = new string[AdminStringInFile];
+                for (int j = 0; j < data.Length; j++)
+                    array[j] = data[j];
+                data = array;
             }
 
             try 
@@ -73,14 +74,15 @@ static class BankDB
 
         for (int i = 0; i < maxUserAccountsCount; i++) // Read User's Data
         {
-            string str = file.ReadLine() ?? nullUserStringInFile;
+            string str = file.ReadLine() ?? " ";
             string[] data = str.Split(' ');
 
-            if (data.Length < nullUserStringInFile.Length)
+            if (data.Length < UserStringInFile)
             {
-                string[] array = new string[nullUserStringInFile.Length];
-                for (int j = 0; j < array.Length; j++)
-                    array[i] = data[i];
+                string[] array = new string[UserStringInFile];
+                for (int j = 0; j < data.Length; j++)
+                    array[j] = data[j];
+                data = array;
             }
 
 
@@ -105,44 +107,6 @@ static class BankDB
     }
 
 
-    public static void DeleteUserAccount(User userAccount)
-    {
-        string username = Credentials.GetUsername();
-        string password = Credentials.GetPassword();
-
-        User account = FindUserAccount(username);
-
-        if (account == null)
-        {
-            Console.WriteLine("Account doesn't exist");
-            return;
-        }
-
-        if (account.Username != username || account.Password != password)
-        {
-            Console.WriteLine("Username or Password are Incorrect");
-            return;
-        }
-
-        for (int i = 0; i < maxUserAccountsCount; i++)
-            if (userAccounts[i] == account)
-            {
-                userAccounts[i] = null;
-                return;
-            }
-    }
-
-    public static void DeleteAdminAccount(User userAccount)
-    {
-        for (int i = 0; i < maxAdminAccountsCount; i++)
-            if (adminAccounts[i].Username == userAccount.Username)
-            {
-                adminAccounts[i] = null;
-                return;
-            }
-    }
-
-
     public static User FindUserAccount(string username)
     {
         foreach (User user in userAccounts)
@@ -161,7 +125,7 @@ static class BankDB
     {
         foreach (Admin admin in adminAccounts)
         {
-            if (admin == null)
+            if (admin.Password == null)
                 return null;
 
             if (admin.Username == username)
@@ -187,12 +151,14 @@ static class BankDB
     public static bool isCorrect(Account account)
     {
         Admin admin = FindAdminAccount(account.Username);
-        if (admin.Username == account.Username && admin.Password == account.Password)
-            return true;
+        if (admin != null)
+            if (admin.Username == account.Username && admin.Password == account.Password)
+                return true;
 
         User user = FindUserAccount(account.Username);
-        if (user.Username == account.Username && user.Password == account.Password)
-            return true;
+        if (user != null)
+            if (user.Username == account.Username && user.Password == account.Password)
+                return true;
 
         return false;
     }
