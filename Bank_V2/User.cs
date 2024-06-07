@@ -48,7 +48,7 @@ class User : Account
                     break;
 
                 case "4":
-                    Password = ChangePassword();
+                    ChangePassword();
                     break;
 
                 case "5":

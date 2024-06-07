@@ -12,9 +12,12 @@ static class BankDB
     private const int minAdminData = 2;
     private const int minUserData = 4;
 
+
+    
     static BankDB()
     {
-        Directory.SetCurrentDirectory("C:\\Users\\bebri\\source\\repos\\Bank_V2\\Bank_V2\\Data");
+        // !!!ATTENTION!!!  Change This Directory to Yours
+        Directory.SetCurrentDirectory("C:\\Users\\User\\source\\repos\\Bank_V2\\Bank_V2\\Data");
 
         ReadFile();
     }

@@ -14,7 +14,7 @@ class Credentials
         set
         {
             if (value == "")
-                throw new ArgumentNullException("Username Can't Be Empty");
+                throw new ArgumentException("Username Can't Be Empty");
 
             if (value.Length < usernameMinLength)
                 throw new ArgumentException("Username Can't Be Less Than " + usernameMinLength + " Digits");
@@ -32,7 +32,7 @@ class Credentials
         set
         {
             if (value == "")
-                throw new ArgumentNullException("Password Can't Be Empty");
+                throw new ArgumentException("Password Can't Be Empty");
 
             if (value.Length < passwordMinLength)
                 throw new ArgumentException("Password Can't Be Less Than " + passwordMinLength + " Digits");

@@ -39,7 +39,7 @@ class Admin : Account
                     break;
 
                 case "2":
-                    Password = ChangePassword();
+                    ChangePassword();
                     break;
 
                 case "3":

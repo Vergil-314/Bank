@@ -13,7 +13,12 @@ class Account
         Password = password;
     }
 
-    protected string ChangePassword() => Credentials.GetPassword("Enter new Password: ");
+    protected void ChangePassword()
+    {
+        Password = Credentials.GetPassword("Enter new Password: ");
+        Console.Clear();
+        BankDB.PrintFile();
+    }
 
 
 }
