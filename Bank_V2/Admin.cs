@@ -39,7 +39,7 @@ class Admin
                     break;
 
                 case "2":
-                    ChangePassword();
+                    account.ChangePassword();
                     break;
 
                 case "3":
@@ -51,7 +51,7 @@ class Admin
                     break;
 
                 case "5":
-                    DeleteAccount(Credentials.GetUsername("Enter Username of Account that You want to Delete: "));
+                    account.DeleteAccount(Credentials.GetUsername("Enter Username of Account that You want to Delete: "));
                     break;
 
                 case "0":
