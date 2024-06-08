@@ -1,10 +1,10 @@
-﻿namespace Bank_V2;
+﻿namespace Bank;
 
 class Program
 {
     static void Main()
     {
-        Bank_V2.Main.MainMenu();
+        Bank.Main.MainMenu();
     }
 }
 

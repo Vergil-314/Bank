@@ -1,4 +1,4 @@
-﻿namespace Bank_V2;
+﻿namespace Bank;
 
 class Credentials
 {
