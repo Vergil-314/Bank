@@ -2,15 +2,12 @@
 
 class Account
 {
-    private int accountCount = 0;
 
     protected string username;
     protected string password;
 
     private const int usernameMinLength = 4;
     private const int passwordMinLength = 4;
-
-    private bool isAdmin;
 
     public string Username
     {
@@ -49,17 +46,11 @@ class Account
         }
     }
 
-    public bool IsAdmin
-    {
-        get => isAdmin;
-        set
-        {
-            isAdmin = value;
-        }
-    }
+    public bool IsAdmin { get; set; }
 
+    private int accountCount = 0;
 
-    public Account(string? username = null, string? password = null)
+    public Account(string username = null, string password = null)
     {
         accountCount += 1;
         this.username = username ?? ("Undefined" + accountCount);

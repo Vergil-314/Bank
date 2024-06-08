@@ -30,13 +30,14 @@ static class Create
             account = new(username, password);
             User user = new User(account, new Card());
         }
+        
 
 
         try
         {
             BankDB.accounts[index] = account;
         }
-        catch (IndexOutOfRangeException)
+        catch (Exception)
         {
             Console.WriteLine("There no avaliable space for this account\n");
             return;
@@ -44,6 +45,5 @@ static class Create
 
         BankDB.PrintFile();
         Console.WriteLine("Account has been Created Succesfully\n");
-
     }
 }

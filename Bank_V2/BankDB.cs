@@ -16,7 +16,7 @@ static class BankDB
     static BankDB()
     {
         // !!!ATTENTION!!!  Change This Directory to Yours
-        Directory.SetCurrentDirectory("C:\\Users\\bebri\\source\\repos\\Bank_V2\\Bank_V2\\Data");
+        Directory.SetCurrentDirectory("C:\\Users\\User\\source\\repos\\Bank_V2\\Bank_V2\\Data");
 
         ReadFile();
     }
@@ -25,17 +25,17 @@ static class BankDB
     {
         using StreamWriter file = new(fileName);
 
-        for (int i = 0; i < maxAccounts; i++)
-            if (accounts[i] != null)
+        foreach (var account in accounts)
+            if (account != null)
             {
-                file.Write(accounts[i].Username + " ");
-                file.Write(accounts[i].Password + " ");
+                file.Write(account.Username + " ");
+                file.Write(account.Password + " ");
 
-                if (!accounts[i].IsAdmin)
+                if (!account.IsAdmin)
                 {
-                    file.Write(accounts[i].Card.ID + " ");
-                    file.Write(accounts[i].Card.Balance + " ");
-                    file.Write(accounts[i].Card.Salary);
+                    //file.Write(account.Card.ID + " ");
+                    //file.Write(account.Card.Balance + " ");
+                    //file.Write(account.Card.Salary);
                 }
                 file.WriteLine();
             }
@@ -55,13 +55,13 @@ static class BankDB
                 if (i < maxAdminAccounts)
                 {
                     Account account = new(data[0], data[1]);
-                    accounts[i] = new Admin(account);
+                    accounts.Add(new Admin(account));
                 }
 
                 else
                 {
                     Account account = new(data[0], data[1]);
-                    accounts[i] = new User
+                    accounts.Add( new User 
                         (
                         account: account,
                         card: new Card 
@@ -70,10 +70,21 @@ static class BankDB
                             balance: decimal.Parse(data[3] ?? "0"),
                             salary: int.Parse(data[4] ?? "0")
                             )
-                        );
+                        ));
                 }
             }
             catch (Exception) { }
+        }
+    }
+
+    private static void SetIsAdmin()
+    {
+        for (int i = 0; i < maxAccounts; i++)
+        {
+            if (i >= maxAdminAccounts)
+                accounts[i].IsAdmin = false;
+            else
+                accounts[i].IsAdmin = true;
         }
     }
 
@@ -125,18 +136,10 @@ static class BankDB
 
     public static int FindEmptySpaceForAccount(bool isAdmin) // Need to change the name
     {
-        if (isAdmin)
-        {
-            for (int i = 0; i < maxAdminAccounts; i++)
-                if (accounts[i] == null)
-                    return i;
-        }
-        else
-        {
-            for (int i = maxAdminAccounts; i < maxAccounts; i++)
-                if (accounts[i] == null)
-                    return i;
-        }
+        for (int i = 0; i < maxAccounts; i++)
+            if (accounts[i] == null)
+                return i;
+
         return -1;
     }
 

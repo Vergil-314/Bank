@@ -49,15 +49,15 @@ class Main
 
             if (BankDB.isCorrect(account))
             {
-                if (account.IsAdmin)
+                Console.Clear();
+
+                try
                 {
-                    Console.Clear();
                     Admin admin = (Admin)BankDB.FindAccount(username);
                     admin.MainMenu();
                 }
-                else
+                catch (Exception) 
                 {
-                    Console.Clear();
                     User user = (User)BankDB.FindAccount(username);
                     user.MainMenu();
                 }
