@@ -47,21 +47,24 @@ class Account
         }
     }
 
-    /*protected Card card;
-    public Card Card { get; set; }
+    protected object isAdmin;
+    public bool IsAdmin
+    {
+        get
+        {
+            if (isAdmin is User)
+                return true;
+            return false;
+        }
+    }
 
-    protected bool isAdmin;
-    public bool IsAdmin { get => isAdmin; }*/
 
-
-    public Account(string? username = null, string? password = null)
+    public Account(string username, string password)
     {
         accountCount += 1;
         this.username = username ?? ("Undefined" + accountCount);
         this.password = password ?? ("Undefined" + accountCount);
 
-        /*if (card == null)
-            this.card = new Card();*/
     }
 
     protected void ChangePassword()
