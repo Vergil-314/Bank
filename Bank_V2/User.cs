@@ -6,11 +6,10 @@ class User : Account
 
     public Card Card { get; private set; }
 
-    public User(Account account, Card card) : base (account.Username, account.Password)
+    public User(string username, string password, Card card) : base (username, password)
     {
-        this.account = account;
         Card = card;
-        this.account.IsAdmin = false;
+        IsAdmin = false;
     }
 
     public void MainMenu()

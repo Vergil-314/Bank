@@ -48,13 +48,25 @@ class Account
 
     public bool IsAdmin { get; set; }
 
-    private int accountCount = 0;
-
-    public Account(string username = null, string password = null)
+    /*private Card card;
+    public Card Card
     {
-        accountCount += 1;
-        this.username = username ?? ("Undefined" + accountCount);
-        this.password = password ?? ("Undefined" + accountCount);
+        get
+        {
+            if (BankDB.FindAccount(Username).IsAdmin == true)
+                return null;
+            return card;
+        }
+        set
+        {
+            card = value;
+        }
+    }*/
+
+    public Account(string? username = null, string? password = null)
+    {
+        this.username = username ?? "Undefined";
+        this.password = password ?? "Undefined";
     }
 
     protected void ChangePassword()
@@ -68,7 +80,7 @@ class Account
     {
         Console.Clear();
 
-        for (int i = 0; i < BankDB.accounts.Count; i++)
+        for (int i = 0; i < BankDB.accounts.Capacity; i++)
             if (BankDB.accounts[i].Username == username)
             {
                 BankDB.accounts[i] = null;

@@ -13,22 +13,22 @@ static class Create
             return;
         }
 
-        int index;
+        int index = 0;
 
         Account account;
 
         if (isAdmin)
         {
-            index = BankDB.FindEmptySpaceForAccount(true);
+            BankDB.FindEmptySpaceForAccount(true);
             account = new(username, password);
-            Admin admin = new(account);
+            Admin admin = new(username, password);
         }
 
         else
         {
-            index = BankDB.FindEmptySpaceForAccount(false);
+            BankDB.FindEmptySpaceForAccount(false);
             account = new(username, password);
-            User user = new User(account, new Card());
+            User user = new User(username, password, new Card());
         }
         
 

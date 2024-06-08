@@ -69,7 +69,38 @@ class Main
             }
 
         else
-            BankDB.AddAccount(username, password);
+            AddAccount(username, password);
     }
+
+    public static void AddAccount(string username, string password)
+    {
+        bool isValid = false;
+        while (!isValid)
+        {
+            Console.Clear();
+            Console.WriteLine("This Account Doesn't Exist\n");
+            Console.WriteLine("What do you want to do?");
+            Console.WriteLine("1. Create a New Account");
+            Console.WriteLine("0. Go Back");
+            Console.WriteLine("-----------------------------");
+
+
+            string option = Console.ReadLine();
+
+            switch (option)
+            {
+                case "1":
+                    isValid = true;
+                    Create.Account(username, password, false);
+                    break;
+                case "0":
+                    isValid = true;
+                    Console.Clear();
+                    break;
+
+            }
+        }
+    }
+
 
 }

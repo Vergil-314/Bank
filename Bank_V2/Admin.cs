@@ -2,12 +2,9 @@
 
 class Admin : Account
 {
-    private readonly Account account;
-
-    public Admin(Account account) : base (account.Username, account.Password)
+    public Admin(string username, string password) : base (username, password)
     {
-        this.account = account;
-        this.account.IsAdmin = true;
+        IsAdmin = true;
     }
 
 
