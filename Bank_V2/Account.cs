@@ -60,15 +60,20 @@ class Account
     }
 
 
-    public Account(string username, string password, object type)
+    public Account(string username, string password)
     {
         accountCount += 1;
         this.username = username ?? ("Undefined" + accountCount);
         this.password = password ?? ("Undefined" + accountCount);
+        accountType = null;
+    }
+
+    public void SetType(object type)
+    {
         accountType = type;
     }
 
-    protected void ChangePassword()
+    public void ChangePassword()
     {
         Password = Credentials.GetPassword("Enter new Password: ");
         Console.Clear();
