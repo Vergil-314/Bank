@@ -10,6 +10,8 @@ class Account
     private const int usernameMinLength = 4;
     private const int passwordMinLength = 4;
 
+    private object accountType;
+
     public string Username
     {
         get => username;
@@ -47,24 +49,23 @@ class Account
         }
     }
 
-    protected object isAdmin;
     public bool IsAdmin
     {
         get
         {
-            if (isAdmin is User)
+            if (accountType is Admin)
                 return true;
             return false;
         }
     }
 
 
-    public Account(string username, string password)
+    public Account(string username, string password, object type)
     {
         accountCount += 1;
         this.username = username ?? ("Undefined" + accountCount);
         this.password = password ?? ("Undefined" + accountCount);
-
+        accountType = type;
     }
 
     protected void ChangePassword()
@@ -89,6 +90,5 @@ class Account
                 return;
             }
     }
-
 
 }

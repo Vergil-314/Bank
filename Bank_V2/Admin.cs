@@ -5,7 +5,7 @@ class Admin : Account
     
     public Admin(string username, string password) : base (username, password)
     {
-        isAdmin = true;
+        accountType = true;
     }
 
 
