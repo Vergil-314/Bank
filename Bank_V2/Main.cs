@@ -5,7 +5,6 @@ class Main
 
     public static void MainMenu()
     {
-        bool clearConsole = false;
         bool isExit = false;
         while (!isExit)
         {
@@ -24,11 +23,11 @@ class Main
             switch (option)
             {
                 case "1":
-                    LogIn();
+                    //LogIn();
                     break;
 
                 case "2":
-                    Create.UserAccount(Credentials.GetUsername(), Credentials.GetPassword());
+                    Create.Account(Credentials.GetUsername(), Credentials.GetPassword(), false);
                     break;
 
                 case "0":
@@ -38,8 +37,9 @@ class Main
             }
         }
     }
+}
 
-    private static void LogIn()
+    /*private static void LogIn()
     {
         string username = Credentials.GetUsername();
         string password = Credentials.GetPassword();
@@ -50,15 +50,15 @@ class Main
 
             if (BankDB.isCorrect(account))
 
-                if (BankDB.IsAdmin)
+                if (account)
                 {
-                    Admin admin = BankDB.FindAdminAccount(username);
                     Console.Clear();
-                    admin.MainMenu();
+                    account = (Admin)account;
+                    account.MainMenu();
                 }
                 else
                 {
-                    User user = BankDB.FindUserAccount(username);
+                    User user = (User) BankDB.FindAccount(username);
                     Console.Clear();
                     user.MainMenu();
                 }
@@ -73,3 +73,4 @@ class Main
     }
 
 }
+*/

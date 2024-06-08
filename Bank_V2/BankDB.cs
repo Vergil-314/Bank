@@ -2,15 +2,14 @@
 
 static class BankDB
 {
-    private const int maxUserAccountsCount = 7;
-    private const int maxAdminAccountsCount = 3;
+    private const int maxUserAccounts = 7;
+    private const int maxAdminAccounts = 3;
 
-    public static User[] userAccounts = new User[maxUserAccountsCount];
-    public static Admin[] adminAccounts = new Admin[maxAdminAccountsCount];
+    private const int maxAccounts = maxUserAccounts + maxAdminAccounts;
+
+    public static List<Account> accounts = new List<Account>();
 
     private const string fileName = "Data.txt";
-    private const int minAdminData = 2;
-    private const int minUserData = 4;
 
 
     
@@ -22,88 +21,61 @@ static class BankDB
         ReadFile();
     }
 
-    public static bool IsAdmin { get; private set; }
-
     public static void PrintFile()
     {
         using StreamWriter file = new(fileName);
 
-        for (int i = 0; i < maxAdminAccountsCount; i++) // Write Admin Data
-            file.WriteLine(adminAccounts[i].Username + " " + adminAccounts[i].Password);
-
-        for (int i = 0; i < maxUserAccountsCount; i++) // Write User Data
-        {
-            if (userAccounts[i] != null)
+        for (int i = 0; i < maxAccounts; i++) // Write Admin Data
+            if (accounts[i] != null)
             {    
-                file.Write(userAccounts[i].Username + " ");
-                file.Write(userAccounts[i].Password + " ");
-                file.Write(userAccounts[i].Card.ID  + " ");
-                file.Write(userAccounts[i].Card.Balance + " ");
-                file.Write(userAccounts[i].Card.Salary);
+                file.Write(accounts[i].Username + " ");
+                file.Write(accounts[i].Password + " ");
+
+                if (!accounts[i].IsAdmin)
+                {
+                    file.Write(accounts[i].Card.ID + " ");
+                    file.Write(accounts[i].Card.Balance + " ");
+                    file.Write(accounts[i].Card.Salary);
+                }
                 file.WriteLine();
             }
         }
-
-    }
 
     private static void ReadFile()
     {
         using StreamReader file = new(fileName);
 
-        for (int i = 0; i < maxAdminAccountsCount; i++) // Read Admin's Data
+        for (int i = 0; i < maxAccounts; i++) // Read Admin's Data
         {
             string str = file.ReadLine() ?? " ";
             string[] data = str.Split(' ');
-
-            if (data.Length < minAdminData)
-            {
-                string[] array = new string[minAdminData];
-                for (int j = 0; j < data.Length; j++)
-                    array[j] = data[j];
-                data = array;
-            }
 
             try 
             {
-                adminAccounts[i] = new Admin(
-                    username: data[0],
-                    password: data[1]);
+                if (i < maxAdminAccounts)
+                {
+                    accounts[i] = new Admin(
+                        username: data[0],
+                        password: data[1]);
+                }
+
+                else
+                {
+                    accounts[i] = new User
+                        (
+                        username: data[0],
+                        password: data[1],
+                        card: new Card 
+                        (
+                            id: data[2],
+                            balance: decimal.Parse(data[3] ?? "0"),
+                            salary: int.Parse(data[4] ?? "0")
+                            )
+                        );
+                }
             }
             catch (Exception) { }
         }
-
-        for (int i = 0; i < maxUserAccountsCount; i++) // Read User's Data
-        {
-            string str = file.ReadLine() ?? " ";
-            string[] data = str.Split(' ');
-
-            if (data.Length < minUserData)
-            {
-                string[] array = new string[minUserData];
-                for (int j = 0; j < data.Length; j++)
-                    array[j] = data[j];
-                data = array;
-            }
-
-
-            try
-            {
-                userAccounts[i] = new User(
-                    username: data[0],
-                    password: data[1],
-
-                    new Card
-                    (
-                        id:      data[2],
-                        balance: decimal.Parse(data[3]),
-                        salary:  int.Parse(data[4])
-                        ));
-            }
-            catch (Exception) { }
-        }
-
-
-
     }
 
 
@@ -126,7 +98,7 @@ static class BankDB
             {
                 case "1":
                     isValid = true;
-                    Create.UserAccount(username, password);
+                    Create.Account(username, password, false);
                     break;
                 case "0":
                     isValid = true;
@@ -137,79 +109,52 @@ static class BankDB
         }
     }
 
-    public static User FindUserAccount(string username)
+    public static Account FindAccount(string username)
     {
-        foreach (User user in userAccounts)
+        foreach (Account account in accounts)
         {
-            if (user == null)
+            if (account == null)
                 return null;
 
-            if (user.Username == username)
-                return user;
+            if (account.Username == username)
+                return account;
         }
 
         return null;
     }
 
-    public static Admin FindAdminAccount(string username)
+    public static int FindEmptySpaceForAccount(bool isAdmin) // Need to change the name
     {
-        foreach (Admin admin in adminAccounts)
+        if (isAdmin)
         {
-            if (admin.Password == null)
-                return null;
-
-            if (admin.Username == username)
-                return admin;
+            for (int i = 0; i < maxAdminAccounts; i++)
+                if (accounts[i] == null)
+                    return i;
         }
-
-        return null;
+        else
+        {
+            for (int i = maxAdminAccounts; i < maxAccounts; i++)
+                if (accounts[i] == null)
+                    return i;
+        }
+        return -1;
     }
 
     public static bool isExist(string username)
     {
-        IsAdmin = true;
-        if(FindAdminAccount(username) != null)
-            return true;
-
-        IsAdmin = false;
-        if (FindUserAccount(username) != null)
+        if(FindAccount(username) != null)
             return true;
 
         return false;
     }
 
-    public static bool isCorrect(Account account)
+    public static bool isCorrect(Account userAccount)
     {
-        Admin admin = FindAdminAccount(account.Username);
-        if (admin != null)
-            if (admin.Username == account.Username && admin.Password == account.Password)
-                return true;
-
-        User user = FindUserAccount(account.Username);
-        if (user != null)
-            if (user.Username == account.Username && user.Password == account.Password)
-                return true;
+        Account account = FindAccount(userAccount.Username);
+        if (account != null && (account.Username == userAccount.Username && account.Password == userAccount.Password))
+            return true;
 
         return false;
     }
     
-    public static int FindEmptySpaceForUserAccount() // Need to change the name
-    {
-        for (int i = 0; i < maxUserAccountsCount; i++)
-            if (userAccounts[i] == null)
-                return i;
-
-        return -1;
-    }
-
-    public static int FindEmptySpaceForAdminAccount() // Also need to change the name
-    {
-        for (int i = 0; i < maxAdminAccountsCount; i++)
-            if (adminAccounts[i] == null)
-                return i;
-
-        return -1;
-    }
-
-
 }

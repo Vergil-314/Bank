@@ -5,7 +5,7 @@ class Admin : Account
     
     public Admin(string username, string password) : base (username, password)
     {
-
+        isAdmin = true;
     }
 
 
@@ -23,8 +23,7 @@ class Admin : Account
             Console.WriteLine("2. Change Password");
             Console.WriteLine("3. Create a New Admin Account");
             Console.WriteLine("4. Create a New User Account");
-            Console.WriteLine("5. Delete Admin Account");
-            Console.WriteLine("6. Delete User Account");
+            Console.WriteLine("5. Delete Account");
             Console.WriteLine("0. Log Out");
             Console.WriteLine("-----------------------------");
 
@@ -43,19 +42,15 @@ class Admin : Account
                     break;
 
                 case "3":
-                    Create.AdminAccount(Credentials.GetUsername("Enter Username: "), Credentials.GetPassword("Enter Password: "));
+                    Create.Account(Credentials.GetUsername("Enter Username: "), Credentials.GetPassword("Enter Password: "), true);
                     break;
 
                 case "4":
-                    Create.UserAccount(Credentials.GetUsername("Enter Username: "), Credentials.GetPassword("Enter Password: "));
+                    Create.Account(Credentials.GetUsername("Enter Username: "), Credentials.GetPassword("Enter Password: "), false);
                     break;
 
                 case "5":
-                    Delete.AdminAccount(Credentials.GetUsername("Enter Username of Account that You want to Delete: "));
-                    break;
-
-                case "6":
-                    Delete.UserAccount(Credentials.GetUsername("Enter Username of Account that You want to Delete: "));
+                    DeleteAccount(Credentials.GetUsername("Enter Username of Account that You want to Delete: "));
                     break;
 
                 case "0":

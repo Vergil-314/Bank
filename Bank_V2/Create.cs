@@ -1,9 +1,9 @@
 ﻿namespace Bank_V2;
 
-class Create
+static class Create
 {
 
-    public static void UserAccount(string username, string password)
+    public static void Account(string username, string password, bool isAdmin)
     {
         Console.Clear();
 
@@ -13,13 +13,26 @@ class Create
             return;
         }
 
-        int index = BankDB.FindEmptySpaceForUserAccount();
+        int index;
 
-        User user = new(username, password, new Card());
+        Account account;
+
+        if (isAdmin)
+        {
+            index = BankDB.FindEmptySpaceForAccount(true);
+            account = new(username, password);
+        }
+
+        else
+        {
+            index = BankDB.FindEmptySpaceForAccount(false);
+            account = new(username, password, new Card());
+        }
+
 
         try
         {
-            BankDB.userAccounts[index] = user;
+            BankDB.accounts[index] = account;
         }
         catch (IndexOutOfRangeException)
         {
@@ -31,33 +44,4 @@ class Create
         Console.WriteLine("Account has been Created Succesfully\n");
 
     }
-
-    public static void AdminAccount(string username, string password)
-    {
-        if(BankDB.isExist(username))
-        {
-            Console.Clear();
-            Console.WriteLine("Account with this Username already exist\n");
-            return;
-        }
-
-        int index = BankDB.FindEmptySpaceForAdminAccount();
-
-        Admin admin = new(username, password);
-        Console.Clear();
-
-        try
-        {
-            BankDB.adminAccounts[index] = admin;
-        }
-        catch (IndexOutOfRangeException)
-        {
-            Console.WriteLine("There no avaliable space for this account\n");
-            return;
-        }
-
-        BankDB.PrintFile();
-        Console.WriteLine("Account has been Created Succesfully\n");
-    }
-
 }
