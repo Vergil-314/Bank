@@ -60,7 +60,7 @@ class Account
     }
 
 
-    public Account(string username, string password)
+    public Account(string? username = null, string? password = null)
     {
         accountCount += 1;
         this.username = username ?? ("Undefined" + accountCount);
@@ -81,7 +81,7 @@ class Account
     }
 
 
-    protected void DeleteAccount(string username)
+    public void DeleteAccount(string username)
     {
         Console.Clear();
 

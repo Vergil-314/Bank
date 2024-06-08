@@ -1,12 +1,14 @@
 ﻿namespace Bank_V2;
 
-class User : Account
+class User
 {
+    private readonly Account account;
 
     public Card Card { get; private set; }
 
-    public User(string username, string password, Card card) : base(username, password)
+    public User(Account account, Card card)
     {
+        this.account = account;
         Card = card;
     }
 
@@ -16,7 +18,7 @@ class User : Account
         while (!isExit)
         {
 
-            Console.WriteLine("Wellcum " + Username + "!");
+            Console.WriteLine("Wellcum " + account.Username + "!");
             Console.Write("Your Card Number is: "); Card.DiplayID();
 
             Console.WriteLine("Your Balance is: " + Card.Balance);
@@ -48,11 +50,11 @@ class User : Account
                     break;
 
                 case "4":
-                    ChangePassword();
+                    account.ChangePassword();
                     break;
 
                 case "5":
-                    DeleteAccount(Username);
+                    account.DeleteAccount(account.Username);
                     isExit = true;
                     break;
                     
