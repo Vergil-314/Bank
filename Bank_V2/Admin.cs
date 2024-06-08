@@ -1,12 +1,13 @@
 ﻿namespace Bank_V2;
 
-class Admin
+class Admin : Account
 {
     private readonly Account account;
 
-    public Admin(Account account)
+    public Admin(Account account) : base (account.Username, account.Password)
     {
         this.account = account;
+        this.account.IsAdmin = true;
     }
 
 

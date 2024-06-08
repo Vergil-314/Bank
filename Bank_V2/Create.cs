@@ -21,13 +21,14 @@ static class Create
         {
             index = BankDB.FindEmptySpaceForAccount(true);
             account = new(username, password);
+            Admin admin = new(account);
         }
 
         else
         {
             index = BankDB.FindEmptySpaceForAccount(false);
             account = new(username, password);
-            User user = new User(new Card());
+            User user = new User(account, new Card());
         }
 
 

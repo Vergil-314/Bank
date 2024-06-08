@@ -1,15 +1,16 @@
 ﻿namespace Bank_V2;
 
-class User
+class User : Account
 {
     private readonly Account account;
 
     public Card Card { get; private set; }
 
-    public User(Account account, Card card)
+    public User(Account account, Card card) : base (account.Username, account.Password)
     {
         this.account = account;
         Card = card;
+        this.account.IsAdmin = false;
     }
 
     public void MainMenu()
@@ -50,11 +51,11 @@ class User
                     break;
 
                 case "4":
-                    account.ChangePassword();
+                    ChangePassword();
                     break;
 
                 case "5":
-                    account.DeleteAccount(account.Username);
+                    DeleteAccount(Username);
                     isExit = true;
                     break;
                     

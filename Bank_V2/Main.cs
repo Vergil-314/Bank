@@ -23,7 +23,7 @@ class Main
             switch (option)
             {
                 case "1":
-                    //LogIn();
+                    LogIn();
                     break;
 
                 case "2":
@@ -37,9 +37,8 @@ class Main
             }
         }
     }
-}
 
-    /*private static void LogIn()
+    private static void LogIn()
     {
         string username = Credentials.GetUsername();
         string password = Credentials.GetPassword();
@@ -49,19 +48,20 @@ class Main
         if (BankDB.isExist(username))
 
             if (BankDB.isCorrect(account))
-
-                if (account)
+            {
+                if (account.IsAdmin)
                 {
                     Console.Clear();
-                    account = (Admin)account;
-                    account.MainMenu();
+                    Admin admin = (Admin)BankDB.FindAccount(username);
+                    admin.MainMenu();
                 }
                 else
                 {
-                    User user = (User) BankDB.FindAccount(username);
                     Console.Clear();
+                    User user = (User)BankDB.FindAccount(username);
                     user.MainMenu();
                 }
+            }
             else
             {
                 Console.Clear();
@@ -73,4 +73,3 @@ class Main
     }
 
 }
-*/

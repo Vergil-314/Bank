@@ -16,7 +16,7 @@ static class BankDB
     static BankDB()
     {
         // !!!ATTENTION!!!  Change This Directory to Yours
-        Directory.SetCurrentDirectory("C:\\Users\\User\\source\\repos\\Bank_V2\\Bank_V2\\Data");
+        Directory.SetCurrentDirectory("C:\\Users\\bebri\\source\\repos\\Bank_V2\\Bank_V2\\Data");
 
         ReadFile();
     }
@@ -25,9 +25,9 @@ static class BankDB
     {
         using StreamWriter file = new(fileName);
 
-        for (int i = 0; i < maxAccounts; i++) // Write Admin Data
+        for (int i = 0; i < maxAccounts; i++)
             if (accounts[i] != null)
-            {    
+            {
                 file.Write(accounts[i].Username + " ");
                 file.Write(accounts[i].Password + " ");
 
@@ -54,17 +54,16 @@ static class BankDB
             {
                 if (i < maxAdminAccounts)
                 {
-                    accounts[i] = new Admin(
-                        username: data[0],
-                        password: data[1]);
+                    Account account = new(data[0], data[1]);
+                    accounts[i] = new Admin(account);
                 }
 
                 else
                 {
+                    Account account = new(data[0], data[1]);
                     accounts[i] = new User
                         (
-                        username: data[0],
-                        password: data[1],
+                        account: account,
                         card: new Card 
                         (
                             id: data[2],
@@ -111,6 +110,7 @@ static class BankDB
 
     public static Account FindAccount(string username)
     {
+
         foreach (Account account in accounts)
         {
             if (account == null)

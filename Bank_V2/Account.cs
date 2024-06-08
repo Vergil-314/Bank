@@ -10,7 +10,7 @@ class Account
     private const int usernameMinLength = 4;
     private const int passwordMinLength = 4;
 
-    private object accountType;
+    private bool isAdmin;
 
     public string Username
     {
@@ -51,11 +51,10 @@ class Account
 
     public bool IsAdmin
     {
-        get
+        get => isAdmin;
+        set
         {
-            if (accountType is Admin)
-                return true;
-            return false;
+            isAdmin = value;
         }
     }
 
@@ -65,23 +64,16 @@ class Account
         accountCount += 1;
         this.username = username ?? ("Undefined" + accountCount);
         this.password = password ?? ("Undefined" + accountCount);
-        accountType = null;
     }
 
-    public void SetType(object type)
-    {
-        accountType = type;
-    }
-
-    public void ChangePassword()
+    protected void ChangePassword()
     {
         Password = Credentials.GetPassword("Enter new Password: ");
         Console.Clear();
         BankDB.PrintFile();
     }
 
-
-    public void DeleteAccount(string username)
+    protected void DeleteAccount(string username)
     {
         Console.Clear();
 
