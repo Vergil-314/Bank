@@ -1,10 +1,12 @@
 ﻿namespace Bank_V2;
 
-class Admin : Account
+class Admin
 {
-    
-    public Admin(string username, string password) : base (username, password)
+    private readonly Account account;
+
+    public Admin(Account account)
     {
+        this.account = account;
     }
 
 
