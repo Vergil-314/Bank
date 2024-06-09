@@ -27,7 +27,7 @@ class Main
                     break;
 
                 case "2":
-                    Create.Account(Credentials.GetUsername(), Credentials.GetPassword(), false);
+                    BankDB.CreateAccount(Credentials.GetUsername(), Credentials.GetPassword(), false);
                     break;
 
                 case "0":
@@ -91,7 +91,7 @@ class Main
             {
                 case "1":
                     isValid = true;
-                    Create.Account(username, password, false);
+                    BankDB.CreateAccount(username, password, false);
                     break;
                 case "0":
                     isValid = true;

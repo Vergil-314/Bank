@@ -41,11 +41,11 @@ class Admin : Account
                     break;
 
                 case "3":
-                    Create.Account(Credentials.GetUsername("Enter Username: "), Credentials.GetPassword("Enter Password: "), true);
+                    BankDB.CreateAccount(Credentials.GetUsername("Enter Username: "), Credentials.GetPassword("Enter Password: "), true);
                     break;
 
                 case "4":
-                    Create.Account(Credentials.GetUsername("Enter Username: "), Credentials.GetPassword("Enter Password: "), false);
+                    BankDB.CreateAccount(Credentials.GetUsername("Enter Username: "), Credentials.GetPassword("Enter Password: "), false);
                     break;
 
                 case "5":

@@ -1,4 +1,6 @@
-﻿namespace Bank;
+﻿using System.Security.Principal;
+
+namespace Bank;
 
 static class BankDB
 {
@@ -56,8 +58,17 @@ static class BankDB
 
             else // Read User Data 
             {
-                accounts.Add(new User(data[0], data[1], 
-                    new Card(data[2], decimal.Parse(data[3]), int.Parse(data[4]))));
+                try
+                {
+                    Card card = new Card(data[2], decimal.Parse(data[3]), int.Parse(data[4]));
+
+                    accounts.Add(new User(data[0], data[1], card));
+                }
+                catch (Exception)
+                {
+                    accounts.Add(new User(data[0], data[1], new Card()));
+                }
+
             }
         }
     }
@@ -65,31 +76,58 @@ static class BankDB
 
     public static Account FindAccount(string username)
     {
-
         foreach (Account account in accounts)
-        {
-            if ((account?.Username ?? string.Empty) == username)
+            if (account.Username == username)
                 return account;
-        }
 
         return null;
     }
 
-    public static int FindEmptySpaceForAccount(bool isAdmin) // Need to change the name
+    public static int FindEmptyAccount()
     {
+        for (int i = 0; i < maxAccounts; i++)
+            if (accounts[i].Username == "")
+                return i;
+        return -1;
+    }
+
+    public static void CreateAccount(string username, string password, bool isAdmin)
+    {
+        Console.Clear();
+
+        if (isExist(username))
+        {
+            Console.WriteLine("Account with this Username already exist\n");
+            return;
+        }
+        
+        Account account;
+
         if (isAdmin)
         {
-            for (int i = 0; i < maxAdminAccounts; i++)
-                if (accounts[i] == null)
-                    return i;
+            Admin admin = new(username, password);
+            account = admin;
         }
+
         else
         {
-            for (int i = maxAdminAccounts; i < maxAccounts; i++)
-                if (accounts[i] == null)
-                    return i;
+            User user = new(username, password, new Card());
+            account = user;
         }
-        return -1;
+
+        int index = FindEmptyAccount();
+
+        if (index != -1)
+            accounts[index] = account;
+
+        else
+        {
+            Console.WriteLine("There no avaliable space for this account\n");
+            return;
+        }
+
+        PrintFile();
+        Console.WriteLine("Account has been Created Succesfully\n");
     }
 
     public static bool isExist(string username)
