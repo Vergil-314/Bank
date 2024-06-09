@@ -1,50 +1,35 @@
-﻿namespace Bank_V2;
+﻿namespace Bank;
 
 class Credentials
 {
     private static string username;
-    private static string password;
-
-    private const int usernameMinLength = 4;
-    private const int passwordMinLength = 4;
-
-    public static string Username
+    private static string Username
     {
-        get => username;
+        get
+        {
+            return username;
+        }
         set
         {
-            if (value == "")
-                throw new ArgumentException("Username Can't Be Empty");
-
-            if (value.Length < usernameMinLength)
-                throw new ArgumentException("Username Can't Be Less Than " + usernameMinLength + " Digits");
-            
-            if (value.Contains(' '))
-                throw new ArgumentException("Username Can't Contain Spaces");
-
+            new Account().Username = value;
             username = value;
         }
     }
 
-    public static string Password
+
+    private static string password;
+    private static string Password
     {
-        get => password;
+        get
+        {
+            return password;
+        }
         set
         {
-            if (value == "")
-                throw new ArgumentException("Password Can't Be Empty");
-
-            if (value.Length < passwordMinLength)
-                throw new ArgumentException("Password Can't Be Less Than " + passwordMinLength + " Digits");
-
-            if (value.Contains(' '))
-                throw new ArgumentException("Password Can't Contain Spaces");
-
+            new Account().Password = value;
             password = value;
-
         }
     }
-
 
     public static string GetUsername(string text = "Enter Your Username: ")
     {
@@ -63,7 +48,7 @@ class Credentials
             catch (Exception exception)
             {
                 Console.Clear();
-                Console.WriteLine(exception.Message);
+                Console.WriteLine(exception.Message + "\n");
             }
 
         }

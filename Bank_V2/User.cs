@@ -1,13 +1,13 @@
-﻿namespace Bank_V2;
+﻿namespace Bank;
 
 class User : Account
 {
-
     public Card Card { get; private set; }
 
-    public User(string username, string password, Card card) : base(username, password)
+    public User(string username, string password, Card card) : base (username, password)
     {
         Card = card;
+        IsAdmin = false;
     }
 
     public void MainMenu()
@@ -52,7 +52,7 @@ class User : Account
                     break;
 
                 case "5":
-                    Delete.UserAccount(Username);
+                    DeleteAccount(Username);
                     isExit = true;
                     break;
                     
@@ -79,7 +79,7 @@ class User : Account
             return;
         }
 
-        User user = BankDB.FindUserAccount(Credentials.GetUsername("Enter Username: "));
+        User user = (User) BankDB.FindAccount(Credentials.GetUsername("Enter Username: "));
 
         Console.Clear();
 

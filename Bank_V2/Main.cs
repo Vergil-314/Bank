@@ -1,11 +1,10 @@
-﻿namespace Bank_V2;
+﻿namespace Bank;
 
 class Main
 {
 
     public static void MainMenu()
     {
-        bool clearConsole = false;
         bool isExit = false;
         while (!isExit)
         {
@@ -28,7 +27,7 @@ class Main
                     break;
 
                 case "2":
-                    Create.UserAccount(Credentials.GetUsername(), Credentials.GetPassword());
+                    BankDB.CreateAccount(Credentials.GetUsername(), Credentials.GetPassword(), false);
                     break;
 
                 case "0":
@@ -49,19 +48,20 @@ class Main
         if (BankDB.isExist(username))
 
             if (BankDB.isCorrect(account))
+            {
+                Console.Clear();
 
-                if (BankDB.IsAdmin)
+                try
                 {
-                    Admin admin = BankDB.FindAdminAccount(username);
-                    Console.Clear();
+                    Admin admin = (Admin)BankDB.FindAccount(username);
                     admin.MainMenu();
                 }
-                else
+                catch (Exception) 
                 {
-                    User user = BankDB.FindUserAccount(username);
-                    Console.Clear();
+                    User user = (User)BankDB.FindAccount(username);
                     user.MainMenu();
                 }
+            }
             else
             {
                 Console.Clear();
@@ -69,7 +69,38 @@ class Main
             }
 
         else
-            BankDB.AddAccount(username, password);
+            AddAccount(username, password);
     }
+
+    public static void AddAccount(string username, string password)
+    {
+        bool isValid = false;
+        while (!isValid)
+        {
+            Console.Clear();
+            Console.WriteLine("This Account Doesn't Exist\n");
+            Console.WriteLine("What do you want to do?");
+            Console.WriteLine("1. Create a New Account");
+            Console.WriteLine("0. Go Back");
+            Console.WriteLine("-----------------------------");
+
+
+            string option = Console.ReadLine();
+
+            switch (option)
+            {
+                case "1":
+                    isValid = true;
+                    BankDB.CreateAccount(username, password, false);
+                    break;
+                case "0":
+                    isValid = true;
+                    Console.Clear();
+                    break;
+
+            }
+        }
+    }
+
 
 }
