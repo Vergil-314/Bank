@@ -2,8 +2,6 @@
 
 class User : Account
 {
-    private readonly Account account;
-
     public Card Card { get; private set; }
 
     public User(string username, string password, Card card) : base (username, password)
@@ -18,7 +16,7 @@ class User : Account
         while (!isExit)
         {
 
-            Console.WriteLine("Wellcum " + account.Username + "!");
+            Console.WriteLine("Wellcum " + Username + "!");
             Console.Write("Your Card Number is: "); Card.DiplayID();
 
             Console.WriteLine("Your Balance is: " + Card.Balance);

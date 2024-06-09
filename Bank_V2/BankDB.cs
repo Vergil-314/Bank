@@ -1,6 +1,4 @@
-﻿using System.Security.Principal;
-
-namespace Bank;
+﻿namespace Bank;
 
 static class BankDB
 {
@@ -18,7 +16,7 @@ static class BankDB
     static BankDB()
     {
         // !!!ATTENTION!!!  Change This Directory to Yours
-        Directory.SetCurrentDirectory("C:\\Users\\User\\source\\repos\\Bank_V2\\Bank_V2\\Data");
+        Directory.SetCurrentDirectory("C:\\Users\\bebri\\source\\repos\\Bank\\Bank_V2\\Data");
 
         ReadFile();
     }
@@ -83,11 +81,21 @@ static class BankDB
         return null;
     }
 
-    public static int FindEmptyAccount()
+    public static int FindEmptyAccount(bool isAdmin)
     {
-        for (int i = 0; i < maxAccounts; i++)
-            if (accounts[i].Username == "")
-                return i;
+        if (isAdmin)
+        {
+            for (int i = 0; i < maxAdminAccounts; i++)
+                if (accounts[i].Username == "")
+                    return i;
+        }
+        else
+        {
+            for (int i = maxAdminAccounts; i < maxAccounts; i++)
+                if (accounts[i].Username == "")
+                    return i;
+        }
+
         return -1;
     }
 
@@ -115,7 +123,7 @@ static class BankDB
             account = user;
         }
 
-        int index = FindEmptyAccount();
+        int index = FindEmptyAccount(isAdmin);
 
         if (index != -1)
             accounts[index] = account;

@@ -46,22 +46,8 @@ class Account
         }
     }
 
-    public bool IsAdmin { get; set; }
+    public bool IsAdmin { get; protected set; }
 
-    /*private Card card;
-    public Card Card
-    {
-        get
-        {
-            if (BankDB.FindAccount(Username).IsAdmin == true)
-                return null;
-            return card;
-        }
-        set
-        {
-            card = value;
-        }
-    }*/
 
     public Account(string? username = null, string? password = null)
     {
