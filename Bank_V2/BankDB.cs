@@ -154,5 +154,18 @@ static class BankDB
 
         return false;
     }
-    
+
+    public static void DeleteAccount(string username)
+    {
+        Console.Clear();
+
+        for (int i = 0; i < accounts.Capacity; i++)
+            if (accounts[i].Username == username)
+            {
+                accounts[i] = null;
+                PrintFile();
+                return;
+            }
+    }
+
 }

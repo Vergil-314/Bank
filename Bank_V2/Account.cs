@@ -62,19 +62,6 @@ class Account
         BankDB.PrintFile();
     }
 
-    protected void DeleteAccount(string username)
-    {
-        Console.Clear();
-
-        for (int i = 0; i < BankDB.accounts.Capacity; i++)
-            if (BankDB.accounts[i].Username == username)
-            {
-                BankDB.accounts[i] = null;
-                Console.Clear();
-                Console.WriteLine("Account has been Deleted\n");
-                BankDB.PrintFile();
-                return;
-            }
-    }
+    
 
 }
