@@ -26,6 +26,7 @@ static class BankDB
         using StreamWriter file = new(fileName);
 
         for (int i = 0; i < maxAccounts; i++) // Write Data
+        {
             if (accounts[i] != null)
             {
                 file.Write(accounts[i].Username + " ");
@@ -38,8 +39,10 @@ static class BankDB
                     file.Write(((User)accounts[i]).Card.Balance + " ");
                     file.Write(((User)accounts[i]).Card.Salary);
                 }
-                file.WriteLine();
             }
+            file.WriteLine();
+
+        }
     }
 
     private static void ReadFile()
@@ -135,7 +138,6 @@ static class BankDB
         }
 
         PrintFile();
-        Console.WriteLine("Account has been Created Succesfully\n");
     }
 
     public static bool isExist(string username)

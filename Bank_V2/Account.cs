@@ -55,6 +55,17 @@ class Account
         this.password = password ?? "Undefined";
     }
 
+    public static void EnterAccount(Account account)
+    {
+        account = BankDB.FindAccount(account.Username);
+
+        if (account is Admin)
+            ((Admin)account).MainMenu();
+
+        else
+            ((User)account).MainMenu();
+    }
+
     protected void ChangePassword()
     {
         Password = Credentials.GetPassword("Enter new Password: ");
@@ -62,10 +73,11 @@ class Account
         BankDB.PrintFile();
     }
 
-    protected void DeleteAccount()
+    protected void DeleteAccount(string username)
     {
+
         for (int i = 0; i < BankDB.accounts.Capacity; i++)
-            if (BankDB.accounts[i].Username == Username)
+            if (BankDB.accounts[i].Username == username)
             {
                 BankDB.accounts[i] = null;
                 BankDB.PrintFile();

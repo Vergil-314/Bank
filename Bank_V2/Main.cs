@@ -27,7 +27,11 @@ class Main
                     break;
 
                 case "2":
-                    BankDB.CreateAccount(Credentials.GetUsername(), Credentials.GetPassword(), false);
+                    string username = Credentials.GetUsername();
+                    string password = Credentials.GetPassword();
+                    BankDB.CreateAccount(username, password, false);
+
+                    Account.EnterAccount(new Account(username, password));
                     break;
 
                 case "0":
@@ -50,7 +54,7 @@ class Main
             if (BankDB.isCorrect(account))
             {
                 Console.Clear();
-                account.MainMenu();
+                Account.EnterAccount(account);
             }
             else
             {
@@ -82,6 +86,7 @@ class Main
                 case "1":
                     isValid = true;
                     BankDB.CreateAccount(username, password, false);
+                    Account.EnterAccount(new Account(username, password));
                     break;
                 case "0":
                     isValid = true;
