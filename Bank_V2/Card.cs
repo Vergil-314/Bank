@@ -7,7 +7,7 @@ class Card
 
     private decimal balance;
 
-    private int salary;
+    private decimal salary;
     public string ID
     {
         get
@@ -34,7 +34,7 @@ class Card
         }
     }
 
-    public int Salary
+    public decimal Salary
     {
         get => salary;
         set
@@ -53,16 +53,31 @@ class Card
         this.salary = salary;
     }
 
-    public void DiplayID()
-    {
-        int i = 0;
-        foreach (char num in ID)
-        {
-            if (i % 4 == 0 && i != 0)
-                Console.Write("-");
 
-            Console.Write(num);
-            i++;
+    public void DisplayData(object data, int offset, string separator)
+    {
+        if (data == null || offset == 0 || data.ToString().Length <= offset)
+            return;
+
+        int firstDigits = 0;
+
+        while ((data.ToString().Length - firstDigits) > offset)
+            firstDigits += offset;
+
+        firstDigits = data.ToString().Length - firstDigits;
+
+        for (int i = 0; i < firstDigits; i++)
+            Console.Write(data.ToString()[i]);
+
+         Console.Write(separator);
+
+        for (int i = firstDigits; i < data.ToString().Length; i++)
+        {
+            if ((i - firstDigits) % offset == 0 && i != 0 && i != firstDigits)
+                Console.Write(separator);
+            Console.Write(data.ToString()[i]);
+            
+        
         }
         Console.WriteLine();
     }

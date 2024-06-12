@@ -17,10 +17,14 @@ class User : Account
         {
 
             Console.WriteLine("Wellcum " + Username + "!");
-            Console.Write("Your Card Number is: "); Card.DiplayID();
+            Console.Write("Your Card Number is: "); Card.DisplayData(Card.ID, 4, "-");
+            Console.Write("Your Balance is: "); Card.DisplayData(Card.Balance, 3, "  ");
 
-            Console.WriteLine("Your Balance is: " + Card.Balance);
+            if (Card.Salary != 0)
+                Console.Write("Your Salary is: "); Card.DisplayData(Card.Salary, 3, "  ");
+
             Console.WriteLine("What would you like to do?\n");
+
             Console.WriteLine("1. Get Salary");
             Console.WriteLine("2. Transfer Money");
             Console.WriteLine("3. Change Salary");
@@ -36,7 +40,7 @@ class User : Account
             switch (choice)
             {
                 case "1":
-                    GetSalary(Card.Salary);
+                    GetSalary();
                     break;
 
                 case "2":
@@ -63,6 +67,17 @@ class User : Account
             }
 
         }
+    }
+
+    private void GetSalary()
+    {
+        Console.Clear();
+
+        if (Card.Salary == 0)
+            ChangeSalary();
+
+        Card.Balance += Card.Salary;
+        BankDB.PrintFile();
     }
 
 
@@ -95,35 +110,6 @@ class User : Account
         BankDB.PrintFile();
     }
 
-    private void GetSalary(int salary = 0)
-    {
-        Console.Clear();
-
-        if (salary == 0)
-        {
-            bool isValid = false;
-            while (!isValid)
-            {
-
-                Console.Write("Enter Your Salary: ");
-                try
-                {
-                    int.TryParse(Console.ReadLine(), out salary);
-                    Card.Salary = salary;
-                    isValid = true;
-                    Console.Clear();
-                }
-                catch (Exception exception)
-                {
-                    Console.Clear();
-                    Console.WriteLine(exception.Message);
-                }
-            }
-        }
-        
-        Card.Balance += salary;
-        BankDB.PrintFile();
-    }
 
     private void ChangeSalary()
     {

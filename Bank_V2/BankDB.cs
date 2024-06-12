@@ -16,7 +16,7 @@ static class BankDB
     static BankDB()
     {
         // !!!ATTENTION!!!  Change This Directory to Yours
-        Directory.SetCurrentDirectory("C:\\Users\\bebri\\source\\repos\\Bank\\Bank_V2\\Data");
+        Directory.SetCurrentDirectory("C:\\Users\\User\\source\\repos\\Bank\\Bank_V2\\Data");
 
         ReadFile();
     }
