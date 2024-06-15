@@ -3,10 +3,7 @@
 class Card
 {
     private string id;
-    private const int idLength = 16;
-
     private decimal balance;
-
     private decimal salary;
     public string ID
     {
@@ -24,7 +21,7 @@ class Card
     }
     public decimal Balance
     {
-        get => balance;
+        get => Math.Round(balance, 2);
         set
         {
             if (value < 0)
@@ -33,10 +30,9 @@ class Card
             balance = value;
         }
     }
-
     public decimal Salary
     {
-        get => salary;
+        get => Math.Round(salary, 2);
         set
         {
             if (value <= 0)
@@ -53,31 +49,83 @@ class Card
         this.salary = salary;
     }
 
-
-    public void DisplayData(object data, int offset, string separator)
+    public void GetSalary()
     {
-        if (data == null || offset == 0 || data.ToString().Length <= offset)
-            return;
+        Console.Clear();
 
-        int firstDigits = 0;
-
-        while ((data.ToString().Length - firstDigits) > offset)
-            firstDigits += offset;
-
-        firstDigits = data.ToString().Length - firstDigits;
-
-        for (int i = 0; i < firstDigits; i++)
-            Console.Write(data.ToString()[i]);
-
-         Console.Write(separator);
-
-        for (int i = firstDigits; i < data.ToString().Length; i++)
+        if (Salary == 0)
         {
-            if ((i - firstDigits) % offset == 0 && i != 0 && i != firstDigits)
-                Console.Write(separator);
-            Console.Write(data.ToString()[i]);
-            
-        
+            Console.WriteLine("You don't have a salary\n");
+            return;
+        }    
+
+        Balance += Salary;
+        BankDB.PrintFile();
+    }
+
+    public void TransferMoney()
+    {
+        Console.WriteLine("How much money do you want to transfer?");
+        decimal count = decimal.Parse(Console.ReadLine());
+        Console.Clear();
+
+        if (count > Balance || count <= 0)
+        {
+            Console.WriteLine("This opperation can't be applied\n");
+            return;
+        }
+
+        User user = (User)BankDB.FindAccount(Credentials.GetUsername("Enter Username: "));
+        Console.Clear();
+
+        if (user == null)
+        {
+            Console.WriteLine("This user doesn't exist\n");
+            return;
+        }
+
+        user.Card.Balance += count;
+        Balance -= count;
+
+        BankDB.PrintFile();
+    }
+
+    public void MakeDeposit()
+    {
+        Console.Clear();
+
+        bool isExit = false;
+        while (!isExit)
+        {
+            Console.WriteLine("How much time do you want to wait?");
+            int time = int.Parse(Console.ReadLine());
+
+            Console.Clear();
+
+            try
+            {
+                Deposit deposit = new Deposit(time);
+                Balance += deposit.GetDepositMoney(Balance);
+                isExit = true;
+            }
+            catch (Exception exception)
+            {
+                Console.Clear();
+                Console.WriteLine(exception.Message + "\n");
+            }
+        }
+        BankDB.PrintFile();
+    }
+
+    public void DisplayID()
+    {
+
+        for (int i = 0; i < ID.Length; i++)
+        {
+            if (i % 4 == 0 && i != 0)
+                Console.Write("-");
+
+            Console.Write(ID[i]);
         }
         Console.WriteLine();
     }

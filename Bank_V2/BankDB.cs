@@ -37,7 +37,9 @@ static class BankDB
                     file.Write(" ");
                     file.Write(((User)accounts[i]).Card.ID + " ");
                     file.Write(((User)accounts[i]).Card.Balance + " ");
-                    file.Write(((User)accounts[i]).Card.Salary);
+                    file.Write(((User)accounts[i]).Card.Salary + " ");
+                    file.Write(((User)accounts[i]).Year);
+
                 }
             }
             file.WriteLine();
@@ -49,27 +51,22 @@ static class BankDB
     {
         using StreamReader file = new(fileName);
 
+        int maxInputLength = 6;
+        string[] data = new string[maxInputLength];
         for (int i = 0; i < maxAccounts; i++)
         {
             string str = file.ReadLine() ?? " ";
-            string[] data = str.Split(' ');
+            for (int j = 0; j < str.Split().Length; j++) // Transfer data into an array
+                data[j] = str.Split()[j];
 
             if (i < maxAdminAccounts) // Read Admin Data
                 accounts.Add(new Admin(data[0], data[1]));
 
             else // Read User Data 
             {
-                try
-                {
-                    Card card = new Card(data[2], decimal.Parse(data[3]), int.Parse(data[4]));
+                Card card = new Card(data[2] ?? "", decimal.Parse(data[3] ?? "0"), int.Parse(data[4] ?? "0"));
 
-                    accounts.Add(new User(data[0], data[1], card));
-                }
-                catch (Exception)
-                {
-                    accounts.Add(new User(data[0], data[1], new Card()));
-                }
-
+                accounts.Add(new User(data[0], data[1], card, int.Parse(data[5] ?? "0")));
             }
         }
     }
@@ -102,29 +99,22 @@ static class BankDB
         return -1;
     }
 
-    public static void CreateAccount(string username, string password, bool isAdmin)
+    public static bool CreateAccount(string username, string password, bool isAdmin)
     {
         Console.Clear();
 
         if (isExist(username))
         {
             Console.WriteLine("Account with this Username already exist\n");
-            return;
+            return false;
         }
         
         Account account;
 
-        if (isAdmin)
-        {
-            Admin admin = new(username, password);
-            account = admin;
-        }
-
+        if (isAdmin)    
+            account = (Admin) new(username, password);
         else
-        {
-            User user = new(username, password, new Card());
-            account = user;
-        }
+            account = (User) new(username, password, new Card());
 
         int index = FindEmptyAccount(isAdmin);
 
@@ -134,10 +124,11 @@ static class BankDB
         else
         {
             Console.WriteLine("There no avaliable space for this account\n");
-            return;
+            return false;
         }
 
         PrintFile();
+        return true;
     }
 
     public static bool isExist(string username)

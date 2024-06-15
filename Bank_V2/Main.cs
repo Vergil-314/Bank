@@ -29,13 +29,18 @@ class Main
                 case "2":
                     string username = Credentials.GetUsername();
                     string password = Credentials.GetPassword();
-                    BankDB.CreateAccount(username, password, false);
 
-                    Account.EnterAccount(new Account(username, password));
+                    if (BankDB.CreateAccount(username, password, false))
+                        Account.EnterAccount(new Account(username, password));
+
                     break;
 
                 case "0":
                     isExit = true;
+                    foreach (var account in BankDB.accounts)
+                        if (account is User && account.Username != "")
+                            ((User)account).Year++;
+
                     BankDB.PrintFile();
                     break;
             }

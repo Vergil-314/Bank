@@ -2,7 +2,7 @@
 
 class Admin : Account
 {
-    public Admin(string username, string password) : base (username, password)
+    public Admin(string? username = null, string? password = null) : base (username, password)
     {
         IsAdmin = true;
     }
@@ -11,7 +11,6 @@ class Admin : Account
     public void MainMenu()
     {
         Console.Clear();
-
         bool isExit = false;
         while (!isExit)
         {
@@ -20,6 +19,7 @@ class Admin : Account
 
             Console.WriteLine("1. Quit this job");
             Console.WriteLine("2. Change Password");
+            Console.WriteLine("3. Change Salary for User");
             Console.WriteLine("3. Create a New Admin Account");
             Console.WriteLine("4. Create a New User Account");
             Console.WriteLine("5. Delete Account");
@@ -41,15 +41,19 @@ class Admin : Account
                     break;
 
                 case "3":
-                    BankDB.CreateAccount(Credentials.GetUsername("Enter Username: "), Credentials.GetPassword("Enter Password: "), true);
+                    ChangeSalary(Credentials.GetUsername("Enter Username: "));
                     break;
 
                 case "4":
-                    BankDB.CreateAccount(Credentials.GetUsername("Enter Username: "), Credentials.GetPassword("Enter Password: "), false);
+                    BankDB.CreateAccount(Credentials.GetUsername("Enter Username: "), Credentials.GetPassword("Enter Password: "), true);
                     break;
 
                 case "5":
-                    DeleteAccount(Credentials.GetUsername("Enter Username of Account that You want to Delete: "));
+                    BankDB.CreateAccount(Credentials.GetUsername("Enter Username: "), Credentials.GetPassword("Enter Password: "), false);
+                    break;
+
+                case "6":
+                    DeleteAccount(Credentials.GetUsername("Enter Username: "));
                     break;
 
                 case "0":
@@ -59,6 +63,37 @@ class Admin : Account
             }
 
         }
+    }
+
+    private void ChangeSalary(string username)
+    {
+        Console.Clear();
+        User user = (User)BankDB.FindAccount(username);
+
+        if (user == null)
+        {
+            Console.WriteLine("Account is not found");
+            return;
+        }
+
+        bool isExit = false;
+        while (!isExit)
+        {
+            Console.Write("Set a new salary: ");
+            Console.Clear();
+
+            try
+            {
+                user.Card.Salary = decimal.Parse(Console.ReadLine());
+                isExit = true;
+            }
+            catch (Exception exception)
+            {
+                Console.Clear();
+                Console.WriteLine(exception.Message);
+            }
+        }
+        BankDB.PrintFile();
     }
 
 

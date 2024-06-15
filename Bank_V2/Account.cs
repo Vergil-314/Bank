@@ -51,8 +51,8 @@ class Account
 
     public Account(string? username = null, string? password = null)
     {
-        this.username = username ?? "Undefined";
-        this.password = password ?? "Undefined";
+        this.username = username ?? "";
+        this.password = password ?? "";
     }
 
     public static void EnterAccount(Account account)
@@ -79,7 +79,11 @@ class Account
         for (int i = 0; i < BankDB.accounts.Capacity; i++)
             if (BankDB.accounts[i].Username == username)
             {
-                BankDB.accounts[i] = null;
+                if (IsAdmin)
+                    BankDB.accounts[i] = new Admin();
+                else
+                    BankDB.accounts[i] = new User();
+
                 BankDB.PrintFile();
 
                 Console.Clear();
